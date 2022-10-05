@@ -24,6 +24,41 @@ El alumnado trabajará por parejas: `alu1` y `alu2`
   <img src="img/resultadoSubidaArchivos.png" width="75%"/>
 </div>
 
+- `alu2` creará un fork de git-work desde su cuenta de GitHub.
+  - Nos dirigimos al repositorio de `GuillermoSH/git-work` y en la parte superior derecha podemos encontrar este botón llamado "fork":
+
+<div align="center">
+  <img src="img/fork.png" width="75%"/>
+</div>
+   
+   - a continuación, rellenamos el formulario a completar:
+ 
+<div align="center">
+  <img src="img/fork2.png" width="75%"/>
+</div>
+
+  - y con esto se nos quedaría una "copia" del repositorio de [GuillermoSH/git-work](https://github.com/GuillermoSH/git-work) como un nuevo repositorio [Tomhuel/git-work](https://github.com/Tomhuel/git-work) (en la captura aparece git.work porque ya tenía "forkeado" el repositorio y perdí la captura).
+
+
+- `alu2` clonará su fork del repo.
+  - Con un `git clone https://github.com/Tomhuel/git-work.git` se clonaría en local el repositorio que hicimos fork previamente:
+
+<div align="center">
+  <img src="img/clonefork.png" width="75%"/>
+</div>
+
+- `alu2` creará una nueva rama `custom-text` y modificará el fichero `index.html` personalizándolo para una supuesta startup.
+  - Hacemos un `git switch -c custom-text`.
+
+- `alu2` enviará un PR a `alu2`.
+  - Nos situamos en la rama `custom-text` y hacemos un `git add .` o también un `git add index.html`. A continuación, realicé un `git commit -m "index.html cambiado"`. Después hice un `git push --set-upstream origin custom-text`. Después fui al repositorio de `GuillermoSH/git-work` y realicé un PR:
+
+    test
+
+<div align="center">
+  <img src="img/PR1.png" width="75%"/>
+</div>
+
 - `alu1` probará el PR de `alu2` en su máquina, y propondrá ciertos cambios que deberá subir al propio PR.
   - Lo primero que debemos hacer es bajarnos los cambios hechos por `alu2` para poder comprobarlos en local. Para ello usaremos los comandos `git remote`, `git fetch` y `git switch` de la siguiente manera:
  
@@ -71,4 +106,12 @@ color: purple
   - Para ello simplemente haremos un `git add .` y un `git commit -m "mensaje"` para dejarlo en local sin subirlo al remoto.
 <div align="center">
   <img src="img/commitLocal.png" width="75%"/>
+</div>
+
+
+- `alu2` creará una nueva rama cool-colors y cambiará la línea 10 de cover.css a: color: darkgreen;
+  - Primero, tenemos que hacer un `switch -c cool-colors`. Una vez ahí cambiamos el código:
+
+<div align="center">
+  <img src="img/confirmacionMerge1.png" width="75%"/>
 </div>
