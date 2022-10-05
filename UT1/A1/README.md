@@ -53,8 +53,6 @@ El alumnado trabajará por parejas: `alu1` y `alu2`
 - `alu2` enviará un PR a `alu2`.
   - Nos situamos en la rama `custom-text` y hacemos un `git add .` o también un `git add index.html`. A continuación, realicé un `git commit -m "index.html cambiado"`. Después hice un `git push --set-upstream origin custom-text`. Después fui al repositorio de `GuillermoSH/git-work` y realicé un PR:
 
-    test
-
 <div align="center">
   <img src="img/PR1.png" width="75%"/>
 </div>
@@ -110,8 +108,41 @@ color: purple
 
 
 - `alu2` creará una nueva rama cool-colors y cambiará la línea 10 de cover.css a: color: darkgreen;
-  - Primero, tenemos que hacer un `switch -c cool-colors`. Una vez ahí cambiamos el código:
+  - Primero, tenemos que hacer un `git switch -c cool-colors`. Una vez ahí cambiamos el código.
+  - Ya después le hice un push a la rama remota para poder hacer el PR en el siguiente apartado:
 
 <div align="center">
-  <img src="img/confirmacionMerge1.png" width="75%"/>
+  <img src="img/css.png" width="75%"/>
+</div>
+
+- `alu2` enviará un PR a `alu1`.
+
+<div align="center">
+  <img src="img/PR2.png" width="75%"/>
+</div>
+
+- `alu1` probará el PR de `alu2` y tendrá que gestionar el posible conflicto al mergear en la rama principal.
+- `alu1` etiquetará esta versión como `0.1.0` y creará una "release" en GitHub apuntando a esta etiqueta.
+  - Como hicimos en el PR anterior, de nuevo haremos un remote add y el repositorio objetivo, un fetch a la rama `cool-colors` y nos cambiaremos a ella para probar el PR:
+ 
+<div align="center">
+  <img src="img/probarPRcool-colors.png" width="75%"/>
+</div>
+
+  - Al hacer un merge desde main a la rama cool-colors se nos presenta el siguiente conflicto, el cuál hemos resuelto cambiando a `color: darkgreen`. Luego, se haría la etiqueta `0.1.0` y se haría un push de los commits hechos al upstream con `$ git push --follow-tags`. Estos fueron los resultados:
+
+<div align="center">
+  <img src="img/conflictoPRcool-colors.png" width="75%"/>
+</div>
+<div align="center">
+  <img src="img/tag0.1.0yPush.png" width="75%"/>
+</div>
+
+  - Finalmente, solo nos quedaría confirmar que se ha mergeado el PR en el main de nuestro repositorio, que se ha subido la etiqueta y crear la release:
+ 
+<div align="center">
+  <img src="img/confirmacionPRcerradoCoolColors.png" width="75%"/>
+</div>
+<div align="center">
+  <img src="img/release0.1.0.png" width="75%"/>
 </div>
