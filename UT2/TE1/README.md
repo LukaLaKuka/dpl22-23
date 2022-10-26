@@ -344,7 +344,7 @@ En esta carpeta app me monto la siguiente estructura y pongo los ficheros defaul
 Y finalmente componemos con `docker compose up`:
 
 ![image](https://user-images.githubusercontent.com/90792144/198154254-90a57cca-9e34-463f-a724-88857da8a166.png)
-(no me da timepo a terminar)
+
 
 Poniendo en ambos casos la imagen de la calculadora en donde tengo puesto la ruta relativa ya me imprime la foto incluida:
 
