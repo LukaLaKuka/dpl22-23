@@ -265,4 +265,38 @@ Importamos y desarmamos la clave GPG de docker con el comando `curl -fsSL https:
 
 ![image](https://user-images.githubusercontent.com/90792144/198110238-5cc61d40-de1a-4abd-8c3a-7fa111d33089.png)
 
+A continuación añadiremos el repositorio externo de Docker a la lista de repositorios oficiales `/etc/apt/sources.list.d` con el comando `echo \
+  "deb [arch=$(dpkg --print-architecture)] https://download.docker.com/linux/debian \  $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null`:
 
+![image](https://user-images.githubusercontent.com/90792144/198132035-c0f857ae-1299-4115-8d2e-4a1f014f4df2.png)
+
+
+Llego la hora de instalar docker, primeramente vamos a actualizar la lista de repositorios oficiales:
+
+![image](https://user-images.githubusercontent.com/90792144/198132385-0a78f5a9-7231-4b31-8f03-5b94776c623e.png)
+
+y después instalaremos docker con `sudo apt install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin` (yo ya lo tenía instalado previamente):
+
+![image](https://user-images.githubusercontent.com/90792144/198132616-da230d87-bbd0-4549-9b34-7c03d35481e9.png)
+
+Comprobamos el estado del demonio de Docker:
+
+![image](https://user-images.githubusercontent.com/90792144/198132840-97ea2baf-29b4-403a-865d-839e3a52b7ee.png)
+
+Finalmente nos añadiremos en el grupo Docker, ya que nadie que no sea `sudo` o `root` no puede utilizar Docker (debemos reiniciar la sesión para que podamos empezar a usar Docker):
+
+```
+sudo groupadd docker $USER
+```
+
+## Instalación Nginx _Dockerizado_
+
+Para iniciar Nginx en Docker, primero debemos cargar la imagen, si tratamos de ejecutar una imagen que no tenemos se descargará automáticamente la imagen. Haremos esto mismo con Nginx, por tanto, debemos hacer un 
+``` 
+docker run -p 80:80 nginx
+```
+Esto lo que hace es correr el contenedor de Docker con Nginx en el puerto 80:80.
+
+![image](https://user-images.githubusercontent.com/90792144/198134268-b242585b-61a7-4f33-bb7a-59189f834b66.png)
+
+***IMPORTANTE*** Si queremos usar Nginx en el puerto 80:80, debemos parar el Nginx nativo de la máquina con un `sudo systemctl stop nginx`.
