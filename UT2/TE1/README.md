@@ -306,4 +306,49 @@ Si ahora en un navegador vamos a localhost o a 127.0.0.1 nos encontraremos con e
 ![image](https://user-images.githubusercontent.com/90792144/198142367-f363e10d-3f2a-47bf-938c-83107ed1976b.png)
 
 
+## Aplicación PHP
+
+### En nativo
+
+Inicio el servicio de Nginx:
+
+![image](https://user-images.githubusercontent.com/90792144/198150646-dc9beeea-acfd-4f97-bc12-b687a6f9dac8.png)
+
+Primero me cree un directorio en mi `/home` llamado `dev` junto al script de PHP que ya había hecho previamente:
+
+![image](https://user-images.githubusercontent.com/90792144/198150050-d5e133c2-411d-4364-87c2-82d830598972.png)
+
+Después enlacé el fichero al root del servidor web, o sea, en  `/usr/share/nginx/html` con el comando `sudo ln -s ~/dev/calculadora.php /usr/share/nginx/html/`: 
+
+![image](https://user-images.githubusercontent.com/90792144/198150420-7dc93a3c-06ef-45c9-9c4a-c591cd424e3a.png)
+
+En la imagen superior se aprecia que no generé el enlace, pero repetí el comando y ya me hizo el enlace:
+
+![image](https://user-images.githubusercontent.com/90792144/198151133-7888cc7f-c2e2-4fc3-a16e-058b7c0167a3.png)
+
+Y al acceder a `localhost/calculadora.php` en el navegador se me muestra lo siguiente:
+
+![image](https://user-images.githubusercontent.com/90792144/198151288-cc057844-72e5-4b9f-a103-1bf150106b11.png)
+
+
+### En Docker
+
+Voy a generarme un directorio llamado app dentro del directorio dev:
+
+![image](https://user-images.githubusercontent.com/90792144/198151715-80396700-8d04-432b-b536-ffb64608f9eb.png)
+
+En esta carpeta app me monto la siguiente estructura y pongo los ficheros default.conf y docker-compose.yml
+
+![image](https://user-images.githubusercontent.com/90792144/198153434-ac44ada5-8ac1-416a-8b3f-7063913bec38.png)
+
+Y finalmente componemos con `docker compose up`:
+
+![image](https://user-images.githubusercontent.com/90792144/198154254-90a57cca-9e34-463f-a724-88857da8a166.png)
+(no me da timepo a terminar)
+
+Poniendo en ambos casos la imagen de la calculadora en donde tengo puesto la ruta relativa ya me imprime la foto incluida:
+
+![image](https://user-images.githubusercontent.com/90792144/198154167-78671f41-ad4a-4f54-a3ed-011b9905d5da.png)
+
+
 
