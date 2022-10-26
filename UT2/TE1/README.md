@@ -300,3 +300,10 @@ Esto lo que hace es correr el contenedor de Docker con Nginx en el puerto 80:80.
 ![image](https://user-images.githubusercontent.com/90792144/198134268-b242585b-61a7-4f33-bb7a-59189f834b66.png)
 
 ***IMPORTANTE*** Si queremos usar Nginx en el puerto 80:80, debemos parar el Nginx nativo de la máquina con un `sudo systemctl stop nginx`.
+
+Si ahora en un navegador vamos a localhost o a 127.0.0.1 nos encontraremos con el siguiente html:
+
+![image](https://user-images.githubusercontent.com/90792144/198142367-f363e10d-3f2a-47bf-938c-83107ed1976b.png)
+
+
+
