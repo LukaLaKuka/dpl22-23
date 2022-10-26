@@ -17,16 +17,16 @@ Objetivo: Implantar una aplicación PHP (tanto en nativo como "_dockerizado_") d
 
 ## 1. Instalación de Nginx y PHP-FPM en **Nativo**
 
-Actualizaremos el listado de los paquetes con `sudo apt update`:
+Actualizaremos el listado de los paquetes con `sudo apt update` (en mi caso ya los tenía actualizados porque perdí las capturas previas):
 
-![comando sudo apt update](https://user-images.githubusercontent.com/90792144/196782792-7d33d6fe-d2d4-4b01-8e35-02a747c6d290.png)
+![image](https://user-images.githubusercontent.com/90792144/198064366-40857280-9397-4d42-8627-e31c9a2bab99.png)
 
-En mi caso, se puede ver que no me actualiza los paquetes directamente, me dice que puedo actualizar 39 paquetes distintos y que use el comando `apt list --upgradable`
-
-![image](https://user-images.githubusercontent.com/90792144/196784091-1131a337-5ba9-42a7-9091-e0e2516c60e6.png)
-
-Y no me dejó actualizarlos todos de golpe, por tanto, tuve que actualizar uno a uno:
 
 A continuación, instalaremos los paquetes de soporte, con el comando  <br/> 
 `sudo apt install -y curl gnupg2 ca-certificates lsb-release debian-archive-keyring`:
 
+![image](https://user-images.githubusercontent.com/90792144/198064805-3341ae70-11f4-4f8a-beec-ed6741b2d93c.png)
+
+
+Descargaremos, desmontaremos y guardamos la clave firma de nginx: `curl -fsSL https://nginx.org/keys/nginx_signing.key \ | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/nginx.gpg` (en mi caso):
+![image](https://user-images.githubusercontent.com/90792144/198065430-279419f0-5411-4968-a303-eb7c756887eb.png)
