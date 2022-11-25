@@ -1,15 +1,80 @@
+* {
+    font-family: "Lobster", cursive;
+}
+
+body {
+    background-color: rgb(255, 204, 76);
+}
+
+.main {
+    display: grid;
+    gap: 20px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+}
+
+.formulaio {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 20px;
+
+    justify-content: center;
+}
+
+.inputs {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+.ordenado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: transparent;
+}
+
+.botonDiv {
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.boton {
+    background-color: rgb(255, 213, 108);
+    width: 30%;
+    border-radius: 7px;
+    padding: 0.5%;
+}
+
+.boton:active {
+    background-color: rgb(207, 159, 37);
+}
+
 .imagenes {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-around;
     gap: 20px;
+    min-height: 50vh;
 }
 
 .input {
     border-radius: 10px;
-    border: solid;
 }
 
 .boton {
 
+}
+
+.footer {
+    display: flex;
+    justify-content: center;
+}
+
+.hide {
+    display: none;
 }
