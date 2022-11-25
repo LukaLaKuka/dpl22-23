@@ -7,67 +7,71 @@
     <link href="estilos.css" type="text/css" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="Header">
-
-        </div>
-        <div class="Main">
+    <div class="container" name="container">
+        <div class="main" name="main">
             <div class="title">
-                <h1></h1>
+                <h1>Imágenes dinámicas con ngx_small_light</h1>
             </div>
             <div class="formulario">
-                <fieldset>
-                    <label>Tamaño</label>
-                    <input type="text" class="input"/>
-                </fieldset>
-                
-                <fieldset>
-                    <label>Ancho del Borde</label>
-                    <input type="text" class="input"/>
-                </fieldset>
-                
-                <fieldset>
-                    <label>Color del borde</label>
-                    <input type="text" class="input"/>
-                </fieldset>
+                <div class="inputs">
+                    <fieldset class="ordenado">
+                        <label>Tamaño</label>
+                        <input type="number" class="input" id="size"/>
+                    </fieldset>
+                    
+                    <fieldset class="ordenado">
+                        <label>Ancho del Borde</label>
+                        <input type="number" class="input" id="width"/>
+                    </fieldset>
+                    
+                    <fieldset class="ordenado">
+                        <label>Color del borde</label>
+                        <input type="color" class="input" id="color"/>
+                    </fieldset>
 
-                <fieldset>
-                    <label>Enfoque</label>
-                    <input type="text" class="input"/>
-                </fieldset>
-                
-                <fieldset>
-                    <label>Desenfoque</label>
-                    <input type="text" class="input"/>
-                </fieldset>
-
-                <input type="button" value="Generar" class="boton"/>
+                    <fieldset class="ordenado">
+                        <label>Radio de enfoque</label>
+                        <input type="number" class="input" id="focus"/>
+                        <label>Cantidad de enfoque</label>
+                        <input type="number" class="input" id="focusMount"/>
+                    </fieldset>
+                    
+                    <fieldset class="ordenado">
+                        <label>Desenfoque</label>
+                        <input type="number" class="input" id="nofocus"/>
+                        <label>Cantidad de desenfoque</label>
+                        <input type="number" class="input" id="nofocusMount"/>
+                    </fieldset>
+                </div>
+                <div class="botonDiv">
+                    <input class="boton" type="button" value="Generar" onclick="imagenesDinamicas()"/>
+                </div>
             </div>
-            <div class="imagenes">
-                <img name="imagen" src="../img/image01.jpg"/>
-                <img name="imagen" src="../img/image02.jpg"/>
-                <img name="imagen" src="../img/image03.jpg"/>
-                <img name="imagen" src="../img/image04.jpg"/>
-                <img name="imagen" src="../img/image05.jpg"/>
-                <img name="imagen" src="../img/image06.jpg"/>
-                <img name="imagen" src="../img/image07.jpg"/>
-                <img name="imagen" src="../img/image08.jpg"/>
-                <img name="imagen" src="../img/image09.jpg"/>
-                <img name="imagen" src="../img/image10.jpg"/>
-                <img name="imagen" src="../img/image11.jpg"/>
-                <img name="imagen" src="../img/image12.jpg"/>
-                <img name="imagen" src="../img/image13.jpg"/>
-                <img name="imagen" src="../img/image14.jpg"/>
-                <img name="imagen" src="../img/image15.jpg"/>
-                <img name="imagen" src="../img/image16.jpg"/>
-                <img name="imagen" src="../img/image17.jpg"/>
-                <img name="imagen" src="../img/image18.jpg"/>
-                <img name="imagen" src="../img/image19.jpg"/>
-                <img name="imagen" src="../img/image20.jpg"/>
+            <div class="imagenes" name="imagenes">
+                <img name="image01" class="hide" src="./img/image01.jpg"/>
+                <img name="image02" class="hide" src="./img/image02.jpg"/>
+                <img name="image03" class="hide" src="./img/image03.jpg"/>
+                <img name="image04" class="hide" src="./img/image04.jpg"/>
+                <img name="image05" class="hide" src="./img/image05.jpg"/>
+                <img name="image06" class="hide" src="./img/image06.jpg"/>
+                <img name="image07" class="hide" src="./img/image07.jpg"/>
+                <img name="image08" class="hide" src="./img/image08.jpg"/>
+                <img name="image09" class="hide" src="./img/image09.jpg"/>
+                <img name="image10" class="hide" src="./img/image10.jpg"/>
+                <img name="image11" class="hide" src="./img/image11.jpg"/>
+                <img name="image12" class="hide" src="./img/image12.jpg"/>
+                <img name="image13" class="hide" src="./img/image13.jpg"/>
+                <img name="image14" class="hide" src="./img/image14.jpg"/>
+                <img name="image15" class="hide" src="./img/image15.jpg"/>
+                <img name="image16" class="hide" src="./img/image16.jpg"/>
+                <img name="image17" class="hide" src="./img/image17.jpg"/>
+                <img name="image18" class="hide" src="./img/image18.jpg"/>
+                <img name="image19" class="hide" src="./img/image19.jpg"/>
+                <img name="image20" class="hide" src="./img/image20.jpg"/>
             </div>
         </div>
         <div class="footer">
-
+            <h2>Trabajo realizado por <a href="https://github.com/Tomhuel">Tomhuel</a></h2>
         </div>
     </div>
     <script src="imagenesDinamicas.js"></script>
