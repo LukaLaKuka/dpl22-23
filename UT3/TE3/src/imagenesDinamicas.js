@@ -12,9 +12,9 @@
 function modificarImagenes (tamanio, borderWidth, borderColor, enfoqueRadio, desenfoqueRadio, enfoqueMount, desenfoqueMount) {
     const imagenes = document.body.children['container'].children['main'].children['imagenes'];
     const totalImagenes = imagenes.childElementCount;
+    imagenes.classList.remove("hide");
     for (let i=0; i<totalImagenes; i++) {
-        imagenes.children[i].classList.remove("hide");
-        imagenes.children[i].src = `./img/${imagenes.children[i].name}.jpg?bw=${borderWidth}&bc=${borderColor}&dh=${tamanio}&dw=${tamanio}&sharpen=${enfoqueRadio}x${enfoqueMount}&blur=${desenfoqueRadio}x${desenfoqueMount}`;
+        imagenes.children[i].src = `img/${imagenes.children[i].name}.jpg?bw=${borderWidth}&bh=${borderWidth}&bc=${borderColor}&dh=${tamanio}&dw=${tamanio}&sharpen=${enfoqueRadio}x${enfoqueMount}&blur=${desenfoqueRadio}x${desenfoqueMount}`;
     }
 }
 
@@ -25,7 +25,7 @@ function modificarImagenes (tamanio, borderWidth, borderColor, enfoqueRadio, des
 function imagenesDinamicas () {
     let tamanio = parseInt(getValorElemento("size"));
     let borderWidth = parseInt(getValorElemento("width"));
-    let borderColor = getValorElemento("color");
+    let borderColor = getValorElemento("color").replace("#","");
     let enfoqueRadio = parseInt(getValorElemento("focus"));
     let desenfoqueRadio = parseInt(getValorElemento("nofocus"));
     let enfoqueMount = parseInt(getValorElemento("focusMount"));

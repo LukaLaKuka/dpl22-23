@@ -16,15 +16,6 @@ body {
     justify-content: center;
 }
 
-.formulaio {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 20px;
-
-    justify-content: center;
-}
-
 .inputs {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;

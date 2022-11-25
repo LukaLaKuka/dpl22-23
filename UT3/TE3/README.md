@@ -3,7 +3,7 @@
 ## Índice:
 
 1. [Instalación](#instalación-del-módulo-ngx_small_light) del módulo [ngx_small_light](https://github.com/cubicdaiya/ngx_small_light) y cargarlo dinámicamente al servidor.
-2. Creación de un [Virtual Host](#creación-del-virtual-host) que atiende peticiones en el dominio [images.alu7410.arkania.es](https://images.alu7410.arkania.es).
+2. Creación de un [Virtual Host](#creación-del-virtual-host) que atiende peticiones en el dominio [images.alu7410.arkania.es](http://images.alu7410.arkania.es).
 3. Creación de una [aplicación web](#aplicación-web) en JavaScript para tratar unas [imágenes predefinidas](https://github.com/Tomhuel/dpl22-23/tree/main/UT3/TE3/img).
 4. [Redirigir](#redirecciones) el subdominio `www` al dominio base (en el puerto SSL). 
 5. Incorporación del [certificado de seguridad CertBot](#certificación-de-seguridad).
@@ -124,7 +124,6 @@ Ahora tendríamos que tener creado un [Virtual Host](#creación-del-virtual-host
 # Añadiremos el siguiente contenido:
 
 location /files {
-        alias /etc/nginx;
 		small_light on; # Habilita el uso del módulo
 		small_light_getparam_mode on; # Habilita poder llamar al módulo mediante parámetros
     }
@@ -156,7 +155,7 @@ Nginx se configura a partir de bloques del servidor. Estos bloques son los Virtu
 
 Estos hosts virtuales se definen mediante unos ficheros `nombreQueQueramos.conf` dentro de la carpeta `/etc/nginx/conf.d/`
 
-Nosotros haremos un virtual host con la dirección [images.alu7410.arkania.es](https://images.alu7410.arkania.es)
+Nosotros haremos un virtual host con la dirección [images.alu7410.arkania.es](http://images.alu7410.arkania.es)
 
 Primero, debemos crear un fichero `.conf` en la carpeta de `/etc/ngix/conf.d/`. Yo haré un fichero que se llamará `ngx_small_light.conf`:
 
@@ -270,7 +269,7 @@ El código JavaScript sería el siguiente:
  * ademas de quitarles la clase hide para que ya no esten ocultas
  * @param {int} tamanio ancho y alto de la imagen
  * @param {int} borderWidth grosor del borde de la imagen
- * @param {string} borderColor color del borde de la imagen
+ * @param {String} borderColor color del borde de la imagen
  * @param {int} enfoqueRadio radio de enfoque
  * @param {int} desenfoqueRadio radio de desenfoque
  * @param {int} enfoqueMount cantidad de enfoque
@@ -279,9 +278,9 @@ El código JavaScript sería el siguiente:
 function modificarImagenes (tamanio, borderWidth, borderColor, enfoqueRadio, desenfoqueRadio, enfoqueMount, desenfoqueMount) {
     const imagenes = document.body.children['container'].children['main'].children['imagenes'];
     const totalImagenes = imagenes.childElementCount;
+    imagenes.classList.remove("hide");
     for (let i=0; i<totalImagenes; i++) {
-        imagenes.children[i].classList.remove("hide");
-        imagenes.children[i].src = `./img/${imagenes.children[i].name}.jpg?bw=${borderWidth}&bc=${borderColor}&dh=${tamanio}&dw=${tamanio}&sharpen=${enfoqueRadio}x${enfoqueMount}&blur=${desenfoqueRadio}x${desenfoqueMount}`;
+        imagenes.children[i].src = `img/${imagenes.children[i].name}.jpg?bw=${borderWidth}&bh=${borderWidth}&bc=${borderColor}&dh=${tamanio}&dw=${tamanio}&sharpen=${enfoqueRadio}x${enfoqueMount}&blur=${desenfoqueRadio}x${desenfoqueMount}`;
     }
 }
 
@@ -290,13 +289,13 @@ function modificarImagenes (tamanio, borderWidth, borderColor, enfoqueRadio, des
  * al metodo modificarImagenes() para modificar las imagenes del html
  */
 function imagenesDinamicas () {
-    let tamanio = getValorElemento("size");
-    let borderWidth = getValorElemento("width");
-    let borderColor = getValorElemento("color");
-    let enfoqueRadio = getValorElemento("focus");
-    let desenfoqueRadio = getValorElemento("nofocus");
-    let enfoqueMount = getValorElemento("focusMount");
-    let desenfoqueMount = getValorElemento("nofocusMount");
+    let tamanio = parseInt(getValorElemento("size"));
+    let borderWidth = parseInt(getValorElemento("width"));
+    let borderColor = getValorElemento("color").replace("#","");
+    let enfoqueRadio = parseInt(getValorElemento("focus"));
+    let desenfoqueRadio = parseInt(getValorElemento("nofocus"));
+    let enfoqueMount = parseInt(getValorElemento("focusMount"));
+    let desenfoqueMount = parseInt(getValorElemento("nofocusMount"));
     modificarImagenes(tamanio, borderWidth, borderColor, enfoqueRadio, desenfoqueRadio, enfoqueMount, desenfoqueMount);
 }
 
@@ -324,16 +323,102 @@ La clase `.hide` es simplemente para que cuando entres por primera vez a la web,
 
 Ya finalmente solo nos faltaría subir los archivos `index.html`, `imagenesDinamicas.js`, `estilos.css` y la carpeta `/img/` al ordenador remoto de alu7410.arkania.es en la carpeta `/home/tomasantela/dev/ngx_small_lightJS`.
 
+Para subirme todos los archivos del proyecto, como estoy en Windows usé la aplicación de [WinScp](https://winscp.net/eng/download.php), que permite conectarte por ssh a tu máquina remota y mandar archivos cómodamente:
 
-
-___
-
-## Redirecciones
+![WinScp](./screenshots/WinScp.png)
 
 ___
 
 ## Certificación de Seguridad
 
+A día de hoy un certificado de seguridad es indispensable en cualquier web, ya que Google (el buscador más usado actualmente) no posiciona favorablemente a las webs sin certificados de seguridad. Además, el certificado de seguridad asegura que nuestra web tiene encriptación de datos a la hora de comunicarse entre servidor-cliente y viceversa.
+
+El certificado que usaremos nosotros será [CertBot](https://certbot.eff.org).
+
+Para instalar certbot primero debemos hacer un:
+
+```
+sudo apt update
+```
+
+y después hacemos un apt install de Certbot:
+
+```
+sudo apt install -y certbot
+```
+
+![sudoAptInstallCertbot](./screenshots/aptInstallCertbot.png)
+
+y comprobamos la versión de Certbot:
+
+```
+certbot --version
+```
+
+![certBotVersion](./screenshots/certBotVersion.png)
+
+Ahora deberíamos instalar un plugin de Nginx para que funcione Certbot:
+
+```
+sudo apt install -y python3-certbot-nginx
+```
+
+![aptInstallNginxCertBot](./screenshots/aptInstallNginxCertBot.png)
+
+Configuraremos a continuación el host que hicimos previamente en el apartado de [virtualHost](#creación-del-virtual-host):
+
+```
+sudo certbot --nginx
+```
+
+![sudoCertBotNginx](./screenshots/certBotNginx.png)
+
+En un principio, con esto todo debería estar hecho. Eso si, el certificado tiene una validez de 90 días, por tanto deberíamos renovarla, pero Certbot genera una tarea cron que comprueba 2 veces al día si quedan menos de 30 días para la renovación del certificado. En caso de que queden menos de 30 días para el fin del certificado, renueva automáticamente el certificado. Por tanto con esto ya simplemente debemos hacer un restart el servicio de Nginx para que ya se refleje el certificado:
+
+```
+sudo systemctl restart nginx
+```
+
+![sudoSystemCtlRestartNginx](./screenshots/sudoNginxRestart.png)
+
+![confirmarCertificado](./screenshots/confirmaCerti.png)
+
+
+Ahora nos faltaría configurar la redirección de https://www.images.alu7410.arkania.es hasta https://images.alu7410.arkania.es, que eso lo tratamos en las [redirecciones](#redirecciones).
+
+Y tras configurar las redirecciones, tenemos que hacer lo mismo que hicimos antes de `certbot --nginx` pero para el nuevo virtual host que hemos configurado para las redirecciones.
+
+```
+sudo certbot --nginx -d www.images.alu7410.arkania.es
+```
+
+![sudoCertBotNginxWWW](./screenshots/certBotNginxWWW.png)
+
+Y con esto finalizamos toda la certificación del dominio.
+
+## Redirecciones
+
+Ahora podemos acceder a la web mediante el enlace [images.alu7410.arkania.es](https://images.alu7410.arkania.es), un enlace que no tiene https (por ahora) ni tampoco tiene integrado el www. ¿Qué pasaría si intentamos ir por http://www.images.alu7410.arkania.es? Pues directamente no existiría esa web, porque no tenemos implementado ningún virtual host con esa dirección ni tampoco ninguna redirección. Por lo que queremos implementar es una redirección para que cuando alguien asista a la web http://www.images.alu7410.arkania.es sea redireccionado a http://images.alu7410.arkania.es automáticamente.
+
+Por tanto, debemos primero crear un fichero .conf en la carpeta `/etc/nginx/conf.d/` en el que pondremos las redirecciones con el siguiente contenido:
+
+Debemos crear un `.conf` en `/etc/nginx/conf.d/` en el que pondremos el siguiente contenido:
+
+```
+server {
+    listen 80;
+    server_name www.images.alu7410.arkania.es;
+    return 301 https://images.alu7410.arkania.es$request_uri;
+}
+```
+
+![wwwConf](./screenshots/wwwConf.png);
+
+Y ya solo faltaría certificar el dominio de [www.images.alu7410.arkania.es](https://www.images.alu7410.arkania.es) mediante el paso final de la certificación.
+
+___
+
+Tras terminar todos estos apartados, podríamos poder acceder a la web de [images.alu7410.arkania.es](https://images.alu7410.arkania.es) y siempre acceder a la mísma página.
 
 
 [Volver al Inicio](#administración-de-servidores-web)
