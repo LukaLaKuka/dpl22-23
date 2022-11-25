@@ -224,7 +224,11 @@ El contenido del fichero será el siguiente:
 </html>
 ```
 
+<div align="center">
+
 ![index.html](./screenshots/indexHTML.png)
+
+</div>
 
 Posterior a crear el `index.html` hacemos un reload del servicio de Nginx para confirmar los cambios:
 
@@ -232,15 +236,27 @@ Posterior a crear el `index.html` hacemos un reload del servicio de Nginx para c
 sudo systemctl reload nginx
 ```
 
+<div align="center">
+
 ![reload](./screenshots/reload.png)
+
+</div>
 
 Nos faltaría simular un nombre de dominio de manera local en el archivo `/etc/hosts`
 
+<div align="center">
+
 ![aniadorHostLocal](./screenshots/hostsAdd.png)
+
+</div>
 
 Ya podría entrar al index.html que tengo ahí desde otro dispositivo, por ejemplo desde mi portátil en un navegador Opera:
 
+<div align="center">
+
 ![conectandoConMiVirtualHost](./screenshots/connectImagesArkania.png)
+
+</div>
 
 Podemos ver que el título de la web es el que pusimos en el html, por tanto, está funcionando correctamente.
 
@@ -253,7 +269,11 @@ Muy bien, ahora a desarrollar código.
 El html y el css no le voy a dar mucha relevancia. 
 Lo más relevante será la clase `.hide` en el css y la estructuración para llegar hasta las imágenes que se conformaría de lo siguiente:
 
-![](./screenshots/Diagrama%20indexHtml.png)
+<div align="center">
+
+![indexHtml](./screenshots/Diagrama%20indexHtml.png)
+
+</div>
 
 Por tanto, para acceder al bloque de html donde tenemos todas las imágenes, tendríamos que acceder desde el document:
 
@@ -325,7 +345,11 @@ Ya finalmente solo nos faltaría subir los archivos `index.html`, `imagenesDinam
 
 Para subirme todos los archivos del proyecto, como estoy en Windows usé la aplicación de [WinScp](https://winscp.net/eng/download.php), que permite conectarte por ssh a tu máquina remota y mandar archivos cómodamente:
 
+<div align="center">
+
 ![WinScp](./screenshots/WinScp.png)
+
+</div>
 
 ___
 
@@ -347,7 +371,11 @@ y después hacemos un apt install de Certbot:
 sudo apt install -y certbot
 ```
 
+<div align="center">
+
 ![sudoAptInstallCertbot](./screenshots/aptInstallCertbot.png)
+
+</div>
 
 y comprobamos la versión de Certbot:
 
@@ -355,7 +383,11 @@ y comprobamos la versión de Certbot:
 certbot --version
 ```
 
+<div align="center">
+
 ![certBotVersion](./screenshots/certBotVersion.png)
+
+</div>
 
 Ahora deberíamos instalar un plugin de Nginx para que funcione Certbot:
 
@@ -363,7 +395,11 @@ Ahora deberíamos instalar un plugin de Nginx para que funcione Certbot:
 sudo apt install -y python3-certbot-nginx
 ```
 
+<div align="center">
+
 ![aptInstallNginxCertBot](./screenshots/aptInstallNginxCertBot.png)
+
+</div>
 
 Configuraremos a continuación el host que hicimos previamente en el apartado de [virtualHost](#creación-del-virtual-host):
 
@@ -371,7 +407,11 @@ Configuraremos a continuación el host que hicimos previamente en el apartado de
 sudo certbot --nginx
 ```
 
+<div align="center">
+
 ![sudoCertBotNginx](./screenshots/certBotNginx.png)
+
+</div>
 
 En un principio, con esto todo debería estar hecho. Eso si, el certificado tiene una validez de 90 días, por tanto deberíamos renovarla, pero Certbot genera una tarea cron que comprueba 2 veces al día si quedan menos de 30 días para la renovación del certificado. En caso de que queden menos de 30 días para el fin del certificado, renueva automáticamente el certificado. Por tanto con esto ya simplemente debemos hacer un restart el servicio de Nginx para que ya se refleje el certificado:
 
@@ -379,9 +419,13 @@ En un principio, con esto todo debería estar hecho. Eso si, el certificado tien
 sudo systemctl restart nginx
 ```
 
+<div align="center">
+
 ![sudoSystemCtlRestartNginx](./screenshots/sudoNginxRestart.png)
 
 ![confirmarCertificado](./screenshots/confirmaCerti.png)
+
+</div>
 
 
 Ahora nos faltaría configurar la redirección de https://www.images.alu7410.arkania.es hasta https://images.alu7410.arkania.es, que eso lo tratamos en las [redirecciones](#redirecciones).
@@ -392,7 +436,11 @@ Y tras configurar las redirecciones, tenemos que hacer lo mismo que hicimos ante
 sudo certbot --nginx -d www.images.alu7410.arkania.es
 ```
 
+<div align="center">
+
 ![sudoCertBotNginxWWW](./screenshots/certBotNginxWWW.png)
+
+</div>
 
 Y con esto finalizamos toda la certificación del dominio.
 
@@ -412,7 +460,11 @@ server {
 }
 ```
 
+<div align="center">
+
 ![wwwConf](./screenshots/wwwConf.png);
+
+</div>
 
 Y ya solo faltaría certificar el dominio de [www.images.alu7410.arkania.es](https://www.images.alu7410.arkania.es) mediante el paso final de la certificación.
 
@@ -420,5 +472,8 @@ ___
 
 Tras terminar todos estos apartados, podríamos poder acceder a la web de [images.alu7410.arkania.es](https://images.alu7410.arkania.es) y siempre acceder a la mísma página.
 
+<div align="center">
 
 [Volver al Inicio](#administración-de-servidores-web)
+
+</div>
