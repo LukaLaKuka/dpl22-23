@@ -320,6 +320,8 @@ Si nos fijamos en el método modificarImagenes() podemos ver que accede al conte
 
 Ya el método lo que hace es recorrer todos los nodos hijos del bloque div.imagenes y cambia el src con los parámetros introducidos.
 
+La clase `.hide` es simplemente para que cuando entres por primera vez a la web, estén las imágenes ocultas. Ya el método modificarImagenes las pondrá visibles.
+
 Ya finalmente solo nos faltaría subir los archivos `index.html`, `imagenesDinamicas.js`, `estilos.css` y la carpeta `/img/` al ordenador remoto de alu7410.arkania.es en la carpeta `/home/tomasantela/dev/ngx_small_lightJS`.
 
 
