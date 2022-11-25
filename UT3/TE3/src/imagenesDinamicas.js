@@ -3,13 +3,7 @@ function modificarImagenes (tamanio, borderWidth, borderColor, enfoqueRadio, des
     const totalImagenes = imagenes.childElementCount;
     for (let i=0; i<totalImagenes; i++) {
         imagenes.children[i].classList.remove("hide");
-        imagenes.children[i].src = `./img/${imagenes.children[i].name}.jpg?
-        bw=${borderWidth}
-        &bc=${borderColor}
-        &dh=${tamanio}
-        &dw=${tamanio}
-        &sharpen=${enfoqueRadio}x${enfoqueMount}
-        &blur=${desenfoqueRadio}x${desenfoqueMount}`;
+        imagenes.children[i].src = `./img/${imagenes.children[i].name}.jpg?bw=${borderWidth}&bc=${borderColor}&dh=${tamanio}&dw=${tamanio}&sharpen=${enfoqueRadio}x${enfoqueMount}&blur=${desenfoqueRadio}x${desenfoqueMount}`;
     }
 }
 
