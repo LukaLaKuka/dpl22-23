@@ -1,6 +1,11 @@
 <?php 
 
 function darCredenciales() {
-    return ["193.70.85.254","5432","travelroad","travelroad_user","42246856L"];
+    $credenciales -> host = "193.70.85.254";
+    $credenciales -> port = "5432";
+    $credenciales -> dbname = "travelroad";
+    $credenciales -> user = "travelroad_user";
+    $credenciales -> passwd = "42246856L";
+    return $credenciales;
 }
 ?>
