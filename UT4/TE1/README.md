@@ -177,7 +177,50 @@ psql -h localhost -U travelroad_local travelroad
 
 ### Carga de datos a base de datos
 
+En mi caso, ya tengo los datos cargados en la base de datos de producción, por lo que me faltaría cargar los datos en la base de datos de desarrollo.
 
+El archivo que usaremos para cargar la base de datos es el [places.csv](./src/BBDD/places.csv)
+
+Primero tendremos que descargar este archivo csv, por lo que haremos lo guardaremos en la carpeta `/tmp`:
+
+```
+curl -o /tmp/places.csv https://raw.githubusercontent.com/sdelquin/dpl/main/ut4/files/places.csv
+```
+
+<div align='center'>
+
+![curlPlacesCSV](./screenshots/curlPlacesCSV.png)
+
+</div>
+
+Previamente deberemos crear una tabla (crearé una tabla llamada places con los campos name y visited):
+
+```
+CREATE TABLE places(
+id SERIAL PRIMARY KEY,
+name VARCHAR(255),
+visited BOOLEAN);
+```
+
+Usaremos la función COPY de PostgreSQL para copiar el archivo places.csv a la base de datos que queremos:
+
+```
+psql -h localhost -U travelroad_local -d travelroad -c "\copy places(name, visited) FROM '/tmp/places.csv' DELIMITER ','"
+```
+
+<div align='center'>
+
+![copyPlacesCSV](./screenshots/copyPlaces.png)
+
+</div>
+
+Con esto ya tendríamos los datos cargados, vamos a abrir sesión con travelroad_local para verificar que estén los datos cargados correctamente:
+
+<div align='center'>
+
+![selectPlaces](./screenshots/selectPlaces.png)
+
+</div>
 
 ### Instalación pgAdmin
 
