@@ -8,6 +8,8 @@
     - Instalación [pgAdmin](#instalación-pgadmin)
     - Include de [_config.php_](#include-configphp)
 
+    [enlace](#índice)
+
 2. [Aplicación PHP](#aplicación-php-entorno-de-desarrollo)
     - [Entorno de Desarrollo](#aplicación-php-entorno-de-desarrollo)
         - [Instalación de extensión](#instalación-extensión-postgresql-para-php-fpm) PostgreSQL para PHP-FPM
@@ -223,6 +225,248 @@ Con esto ya tendríamos los datos cargados, vamos a abrir sesión con travelroad
 </div>
 
 ### Instalación pgAdmin
+
+¿Qué es pgAdmin?
+
+pgAdmin es una plataforma de código abierto para administrar tu Base de Datos en PostgreSQL mediante una interfaz. Esta está programada en Phyton y con un framework llamado Flask.
+
+Instalaremos la plataforma de pgAdmin tanto en la máquina de producción como en la de desarrollo
+
+Primero de todo instalaremos Python, y como este añade utilidades ejecutables en la línea de comandos, debemos asegurarnos que la ruta de binarios está en el PATH correspondiente:
+
+```
+echo 'export PATH=~/.local/bin:$PATH' >> .bashrc && source .bashrc
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![echoPathDevelopment](./screenshots/echoPathDesarrollo.png)
+
+
+Máquina de producción
+
+![echoPathProduction](./screenshots/echoPathProduccion.png)
+
+</div>
+
+Una vez nos hemos asegurado de tener la ruta de los binarios en el PATH correspondiente, instalaremos Python:
+
+Actualizamos la lista de paquetes:
+
+```
+sudo apt update
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![sudoAptUpdatePhytonDevelopment](./screenshots/sudoAptUpdate3Develop.png)
+
+Máquina de producción
+
+![sudoAptUpdatePhytonProduction](./screenshots/sudoAptUpdate3Production.png)
+
+</div>
+
+Tenemos unos prerequisitos previos para poder instalar Python, por tanto los instalaremos:
+
+```
+sudo apt install -y build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libreadline-dev libffi-dev libsqlite3-dev wget libbz2-dev
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![installingNeededPackagesPhytonDevelop](./screenshots/prerequisitosPhytonDevelop.png)
+
+Máquina de producción
+
+![installNeededPackagesPhytonProduction](./screenshots/prerequisitosPhytonProduction.png)
+
+</div>
+
+Ahora instalaremos la última versión disponible comprimida de Python, la descomprimimos y accederemos a la carpeta:
+
+```
+curl https://www.python.org/ftp/python/3.11.0/Python-3.11.0.tgz | tar xvz -C /tmp && cd /tmp/Python-3.11.0
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![phytonInstallDevelop](./screenshots/phytonInstallDevelop.png)
+
+Máquina de producción
+
+![phytonInstallProduction](./screenshots/phytonInstallPorduction.png)
+
+</div>
+
+A continuación configuraremos la instalación:
+
+```
+./configure --enable-optimizations
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![phytonConfigureDevelop](./screenshots/phytonConfigureDevelop.png)
+
+Máquina de producción
+
+![phytonConfigureProduction](./screenshots/phytonCONfigureProduction.png)
+
+</div>
+
+y compilaremos el intérprete:
+
+```
+make -j `nproc`
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![phytonCompilationDevelop](./screenshots/phytonCompilation.png)
+
+Máquina de producción
+
+![phytonCompilationProduction](./screenshots/phytonCompilationProduction.png)
+
+</div>
+
+Y ejecutamos la instalación de Python:
+
+```
+sudo make altinstall
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![phytonMakeInstallDevelop](./screenshots/phytonMakeInstallDevelop.png)
+
+Máquina de producción
+
+![phytonMakeInstallProduction](./screenshots/phytonMakeInstall.png)
+
+</div>
+
+Hacemos que la nueva versión de Python sea la versión por defecto del sistema:
+
+```
+sudo update-alternatives --install /usr/bin/python python /usr/local/bin/python3.11 10
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![pythonAlternativeDevelop](./screenshots/pythonUpDateAlternativeDevelop.png)
+
+Máquina de producción
+
+![pythonAlternativeProduction](./screenshots/pythonUpDateAlternativeProduction.png)
+
+</div>
+
+Ahora instalaremos los paquetes adicionales para Python.
+
+Nos aseguramos de tener la última versión del instalador de paquetes:
+
+```
+python -m pip install -U pip
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![pythonPIPInstallDevelop](./screenshots/pythonPipInstallDevelop.png)
+
+Máquina de producción
+
+![pythonPIPInstallProduction](./screenshots/pythonPipInstallProduction.png)
+
+</div>
+
+
+Instalaremos a continuación los siguientes paquetes:
+
+black - Formateador de código Python
+
+iPython - Consola interactiva de Python
+
+wheel - Paquete de soporte para instalar otros paquetes
+
+cowsay - API o script de consola para imprimir dibujos por terminal
+
+```
+pip install black ipython wheel cowsay
+```
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![pythonAddingPacksDevelop](./screenshots/pythonAddingPacksDevelop.png)
+
+Máquina de producción
+
+![pythonAddingPacksProduction](./screenshots/pythonAddingPacksProduction.png)
+
+</div>
+
+Y con esto finalizamos la instalación de Phyton.
+
+Ahora podremos proseguir con la instalación de pgAdmin:
+
+Crearemos unas carpetas de trabajo con unos permisos adecuados:
+
+```
+sudo mkdir /var/lib/pgadmin | sudo mkdir /var/log/pgadmin
+```
+
+```
+sudo chown $USER /var/lib/pgadmin | sudo chown $USER /var/lib/pgadmin
+```
+
+| Máquina de Desarrollo | Máquina de Producción |
+| -- | -- |
+| ![pgadminDIRDevelop](./screenshots/pgadminDIRDevelop.png) | ![pgadminDIRDevelop](./screenshots/pgadminDIRProduction.png) |
+
+
+Crearemos un entorno virtual de Python:
+
+```
+cd $HOME
+python -m venv pgadmin4
+source pgadmin4/bin/activate
+```
+
+E instalamos el paquete de pgadmin
+
+```
+pip install pgadmin4
+```
+
+<div align='center'>
+
+| Máquina de desarrollo | Máquina de Producción |
+| --  | -- |
+| ![pgAdminInstallDevelop](./screenshots/pgadminInstallDevelop.png) | ![pgAdminInstallProduction](./screenshots/pgadminInstallProduction.png) |
+
+</div>
+
 
 
 
