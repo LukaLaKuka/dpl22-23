@@ -729,11 +729,25 @@ El config.php es una función que devuelve un array asociativo, y en el DAO llam
 
 ### Clonar repositorio a máquina de producción
 
+Deberíamos de clonar el repositorio en algún directorio de la máquina de producción para poder hacer pulls con cada actualización final que tengamos.
 
+En mi caso decidí que voy a clonar el repositorio en el `/home/tomasantela/dev/`:
+
+<div align='center'>
+
+![gitCloneProduction](./screenshots/gitClone.png)
+
+</div>
+
+Con esto ya podremos "pullearnos" todos los cambios siempre que queramos.
 
 ### Incluir fichero config.php configurado a producción
 
+Para incluir el fichero, decidí añadir directamente al script donde hacemos los pulls con el script [deploy.sh](#script-deploysh) un comando scp para pasar ese fichero a parte.
 
+```
+scp ../php/config.php tomasantela@arkania:/home/tomasantela/dev/dpl22-23/UT4/TE1/src/php
+```
 
 ### Configuración Virtual Host
 
@@ -751,12 +765,57 @@ ___
 
 ### Script _deploy.sh_
 
+El script [deploy.sh](./src/sh/deploy.sh) hace simplemente una conexión por ssh a alu7410.arkania.es, se dirige al directorio `/home/tomasantela/dev/dpl22-23` y hace un git pull. Con eso se trae todos los cambios hechos en el repositorio que está subido en GitHub.
 
-
+```
+ssh tomasantela@arkania "cd ~/dev/dpl22-23 && git pull"
+```
 
 ### Testeo del Script
 
+Para testear el script, simplemente crearé un fichero `test.txt` en el directorio `/UT4/TE1`. Lo pushearé y comprobaré el estado del directorio TE1 antes de usar el comando y otro después de usar el comando:
 
+Estado de la máquina local antes de pushear:
+
+<div align='center'>
+
+![testTxtLocal](./screenshots/testTxtLocal.png)
+
+</div>
+
+Pusheamos:
+
+<div align='center'>
+
+![pushedTest](./screenshots/pushedTest.png)
+
+</div>
+
+Una vez pusheado, confirmamos que aún no se han subido los cambios a la máquina de producción:
+
+<div align='center'>
+
+![stateBeforePull](./screenshots/stateBeforePull.png)
+
+</div>
+
+Podemos apreciar que fichero `test.txt` no está aún. Ahora ejecutamos el script `deploy.sh`
+
+<div align='center'>
+
+![pullingToRemote](./screenshots/pullingToRemote.png)
+
+</div>
+
+Ahora que hemos hecho pull en la máquina remota, volvemos a mirar el estado:
+
+<div align='center'>
+
+![stateAfterPull](./screenshots/stateAfterPull.png)
+
+</div>
+
+Como apreciamos en la captura de pantalla, el `ls` de arriba fue antes del pull, y el `ls` de abajo es después del pull.
 
 ___
 
