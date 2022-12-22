@@ -10,6 +10,7 @@
     <h1>Travelroad</h1>
     <h2>Places Visited</h2>
     <?php generateList(true);?>
-    <h2>Places Visited</h2>
+    <h2>Places not visited yet</h2>
+    <?php generateList(false);?>
 </body>
 </html>

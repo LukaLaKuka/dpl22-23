@@ -687,7 +687,16 @@ La salida del html debería ser algo tal que así:
 <li>Lisboa</li>
 <li>Río</li>
 </ul>
-    <h2>Places Visited</h2>
+    <h2>Places not visited yet</h2>
+    <ul>
+<li>Tokio</li>
+<li>Nairobi</li>
+<li>Denver</li>
+<li>Moscú</li>
+<li>Oslo</li>
+<li>Cincinnati</li>
+<li>Helsinki</li>
+</ul>
 </body>
 </html>
 ```
@@ -708,6 +717,14 @@ function darCredenciales() {
 ```
 
 ### Utilización del dominio [php.travelroad.local]()
+
+Ahora preparaparemos un virtual host para nuestra máquina de desarrollo. Crearemos un fichero llamado `travelroad.conf` en la carpeta `etc/nginx/conf.d` con el siguiente contenido: 
+
+<div align='center'>
+
+![hostLocal](./screenshots/hostLocal.png)
+
+</div>
 
 
 
@@ -760,8 +777,6 @@ scp ../php/config.php tomasantela@arkania:/home/tomasantela/dev/dpl22-23/UT4/TE1
 ___
 
 ## Despliegue
-
-
 
 ### Script _deploy.sh_
 
