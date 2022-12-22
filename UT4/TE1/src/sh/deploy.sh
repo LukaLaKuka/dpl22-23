@@ -1,0 +1,1 @@
+ssh tomasantela@arkania "cd ~/dev/dpl22-23 && git pull"

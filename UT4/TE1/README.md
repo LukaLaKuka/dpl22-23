@@ -8,8 +8,6 @@
     - Instalación [pgAdmin](#instalación-pgadmin)
     - Include de [_config.php_](#include-configphp)
 
-    [enlace](#índice)
-
 2. [Aplicación PHP](#aplicación-php-entorno-de-desarrollo)
     - [Entorno de Desarrollo](#aplicación-php-entorno-de-desarrollo)
         - [Instalación de extensión](#instalación-extensión-postgresql-para-php-fpm) PostgreSQL para PHP-FPM
@@ -186,7 +184,7 @@ El archivo que usaremos para cargar la base de datos es el [places.csv](./src/BB
 Primero tendremos que descargar este archivo csv, por lo que haremos lo guardaremos en la carpeta `/tmp`:
 
 ```
-curl -o /tmp/places.csv https://raw.githubusercontent.com/sdelquin/dpl/main/ut4/files/places.csv
+curl -o /tmp/places.csv https://raw.githubusercontent.com/${Nuestro usuario}/dpl/main/ut4/files/places.csv
 ```
 
 <div align='center'>
@@ -433,17 +431,26 @@ Ahora podremos proseguir con la instalación de pgAdmin:
 Crearemos unas carpetas de trabajo con unos permisos adecuados:
 
 ```
-sudo mkdir /var/lib/pgadmin | sudo mkdir /var/log/pgadmin
+sudo mkdir /var/lib/pgadmin
+sudo mkdir /var/log/pgadmin
 ```
 
 ```
-sudo chown $USER /var/lib/pgadmin | sudo chown $USER /var/lib/pgadmin
+sudo chown $USER /var/lib/pgadmin
+sudo chown $USER /var/lib/pgadmin
 ```
 
-| Máquina de Desarrollo | Máquina de Producción |
-| -- | -- |
-| ![pgadminDIRDevelop](./screenshots/pgadminDIRDevelop.png) | ![pgadminDIRDevelop](./screenshots/pgadminDIRProduction.png) |
+<div align='center'>
 
+Máquina de desarrollo
+
+![pgadminDIRDevelop](./screenshots/pgadminDIRDevelop.png)
+
+Máquina de producción
+
+![pgadminDIRProduction](./screenshots/pgadminDIRProduction.png)
+
+</div>
 
 Crearemos un entorno virtual de Python:
 
@@ -461,32 +468,244 @@ pip install pgadmin4
 
 <div align='center'>
 
-| Máquina de desarrollo | Máquina de Producción |
-| --  | -- |
-| ![pgAdminInstallDevelop](./screenshots/pgadminInstallDevelop.png) | ![pgAdminInstallProduction](./screenshots/pgadminInstallProduction.png) |
+Máquina de desarrollo
+
+![pgAdminInstallDevelop](./screenshots/pgadminInstallDevelop.png)
+
+Máquina de producción
+
+![pgAdminInstallProduction](./screenshots/pgadminInstallProduction.png)
+
+</div>
+
+Ahora ejecutaremos el script de configuración de pgadmin.
+
+<div align='center'>
+
+Máquina de desarrollo
+
+![pgadminScriptDevelop](./screenshots/pgadminScriptDevelop.png)
+
+Máquina de producción
+
+![pgadminScriptProduction](./screenshots/pgadminScriptProduction.png)
+
+</div>
+
+A continuación para poder poner el pgadmin en modo producción necesitaremos un procesador de peticiones WSGI para Python. Usaremos gunicorn en la máquina de producción:
+
+```
+pip install gunicorn
+```
+
+<div align='center'>
+
+Máquina de producción
+
+![gunicornInstallProduction](./screenshots/gunicornInstallProduction.png)
+
+</div>
+
+Ahora levantaremos el servidor pgadmin utilizando gunicorn:
+
+```
+gunicorn --chdir pgadmin4/lib/python3.11/site-packages/pgadmin4 --bind unix:/tmp/pgadmin4.sock pgAdmin4:app
+```
+
+<div align='center'>
+
+![gunicornStartUp](./screenshots/gunicornStarUp.png)
+
+</div>
+
+Y ahora, en otra terminal, crearemos un virtualhost para poder acceder a la interfaz de pgadmin de nuestras bases de datos:
+
+<div align='center'>
+
+![](./screenshots/pgadminHost.png)
+
+</div>
+
+A continuación haremos un reload al servicio de nginx, y nos dirigimos a la dirección DNS [pgadmin.alu7410.arkania.es](http://pgadmin.alu7410.arkania.es)
+
+<div align='center'>
+
+![](./screenshots/pgadminShowcase.png)
+
+</div>
+
+Para evitar tener el gunicorn trabajando con una terminal, crearemos un servicio para este.
+
+Crearemos un fichero en `/etc/systemd/system/pgadmin.service` con el siguiente contenido:
+
+```
+[Unit]
+Description=pgAdmin
+
+[Service]
+User=${Nuestro usuario}
+ExecStart=/bin/bash -c '\
+source /home/${Nuestro usuario}/pgadmin4/bin/activate && \
+gunicorn --chdir /home/${Nuestro usuario}/pgadmin4/lib/python3.11/site-packages/pgadmin4 \
+--bind unix:/tmp/pgadmin4.sock \
+pgAdmin4:app'
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+<div align='center'>
+
+![pgadminDemonizing](./screenshots/pgadminDemonizing.png)
+
+</div>
+
+Ahora recargaremos todos los servicios e iniciaremos el de pgadmin:
+
+```
+sudo systemctl daemon-reload
+sudo systemctl start pgadmin
+sudo systemctl enable pgadmin
+```
+
+<div align='center'>
+
+![daemonsReload](./screenshots/daemonReloads.png)
+
+</div>
+
+Y comprobamos si está activo el servicio de pgadmin:
+
+<div align='center'>
+
+![pgadminStatus](./screenshots/pgadminStatus.png)
 
 </div>
 
 
 
+A continuación registraremos un servidor de base de datos.
 
-### Include config.php
+Tras iniciar sesión, llegaremos a la interfaz. En la barra de la izquierda, tendremos un apartado que se llama `servers`.
 
+<div align='center'>
 
+![pgadminRegistro](./screenshots/pgadminRegistro.png)
 
+</div>
+
+Y configuraremos primero en la pestaña de general:
+
+<div align='center'>
+
+![](./screenshots/pgadminGeneral.png)
+
+</div>
+
+Y después la pestaña de conexión:
+
+<div align='center'>
+
+![pgadminConnection](./screenshots/pgadminConnection.png)
+
+</div>
+
+Y confirmaremos los cambios con el botón `Save`
+
+A continuación configuraremos para que el servidor de PostgreSQL permita conexiones desde fuera:
+
+Modificaremos el archivo `/etc/postgresql/15/main/postgresql.conf` en la línea 64:
+
+<div align='center'>
+
+![postgreSQLlineChanged](./screenshots/postgreSQLlineChanged.png)
+
+</div>
+
+Ahora cederemos permisos al usuario que hemos creado en PostgreSQL para poder acceder desde cualquier IP modificando el archivo `/etc/postgresql/15/main/pg_hba.conf`
+
+Añadiremos esto al final del fichero:
+
+```
+host travelroad travelroad_user 0.0.0.0/0 md5
+```
+
+<div align='center'>
+
+![postgreSQLHostAdded](./screenshots/postSQLHostAdded.png)
+
+</div>
+
+Una vez hechos los cambios, hacemos un restart a PostgreSQL.
 ___
 
 ## Aplicación PHP (Entorno de Desarrollo)
 
-
-
 ### Instalación extensión PostgreSQL para PHP-FPM
+
+Ahora instalaremos una extensión de PHP para poder hacer conexiones con servidores de base de datos PostgreSQL:
+
+Usaremos el comando en la terminal:
+
+```
+sudo apt install -y php8.2-pgsql
+```
+
+<div align='center'>
+
+![PHPPostgreSQLExtensionInstall](./screenshots/phpPostgreSQLInstall.png)
+
+</div>
 
 
 
 ### Desarrollo de la Aplicación
 
+La aplicación desarrollada se resume de lo siguiente:
 
+Tenemos el archivo main [travelroad.php](./src/php/vista/travelroad.php) que tiene una plantilla html, en la que cuando corresponde una lista
+a la función `generateList()` del archivo en el controlador [GeneratePLaces.php](./src/php/controlador/GeneratePlaces.php) y este hace solicitud de
+una lista de sitios a [DAO.php](./src/php/modelo/DAO.php) en base si han sido visitados o no.
+
+La salida del html debería ser algo tal que así:
+
+```
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Travelroad</title>
+</head>
+<body>
+    <h1>Travelroad</h1>
+    <h2>Places Visited</h2>
+    <ul>
+<li>Budapest</li>
+<li>Berlín</li>
+<li>Lisboa</li>
+<li>Río</li>
+</ul>
+    <h2>Places Visited</h2>
+</body>
+</html>
+```
+
+El [Data Access Object](./src/php/modelo/DAO.php) (archivo del modelo) pide una solicitud al servidor de base de datos de la máquina de producción. Las credenciales están guardadas en otro archivo llamado `config.php` (No incluído en el repositorio).
+
+
+El contenido del `config.php` es el siguiente:
+```
+function darCredenciales() {
+    $credenciales['host'] = "193.70.85.254";
+    $credenciales['port'] = "5432";
+    $credenciales['dbname'] = "travelroad";
+    $credenciales['user'] = "travelroad_user";
+    $credenciales['passwd'] = /*Contenido eliminado*/;
+    return $credenciales;
+}
+```
 
 ### Utilización del dominio [php.travelroad.local]()
 
@@ -494,11 +713,19 @@ ___
 
 ### Include de config.php
 
+El include del config.php se encuentra en el modelo, archivo que hace la solicitud al servidor de base de datos:
+
+<div align='center'>
+
+![configPHPSHowcase](./screenshots/configPHPshowcase.png)
+
+</div>
+
+El config.php es una función que devuelve un array asociativo, y en el DAO llamo a esa función para obtener esas credenciales.
+
 
 
 ## Aplicación PHP (Entorno de Producción)
-
-
 
 ### Clonar repositorio a máquina de producción
 
@@ -523,6 +750,7 @@ ___
 
 
 ### Script _deploy.sh_
+
 
 
 
