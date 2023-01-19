@@ -57,11 +57,11 @@ Tendremos que instalar unos paquetes de soporte para poder habilitar algunos mó
 
 Máquina de Desarrollo
 
-![DevLaravelPaquetesSoporte](./screenshots/DevLaravelPaquetesSoporte.png)
+![DevLaravelPaquetesSoporte](./screenshots/DevLaravelPaquetesSoporte2.png)
 
 Máquina de Producción
 
-![ProLaravelPaquetesSoporte](./screenshots/ProLaravelPaquetesSoporte.png)
+![ProLaravelPaquetesSoporte](./screenshots/ProLaravelPaquetesSoporte2.png)
 
 </div>
 
@@ -71,9 +71,9 @@ Una vez los módulos habilitados y composer instalado, ya podríamos crear el pr
 
 <div align='center'>
 
-![DevLaravelComposeCreateProject](./screenshots/DevLaravelComposeCreateProject.png)
+![DevLaravelComposeCreateProject](./screenshots/DevLaravelComposeCreateProject3.png)
 
-![DevLaravelComposeListProject](./screenshots/DevLaravelComposeListProject.png)
+![DevLaravelComposeListProject](./screenshots/DevLaravelComposeListProject4.png)
 
 </div>
 
@@ -81,7 +81,7 @@ Ahora deberemos comproban si se instalado correctamente artisan, la interfaz en 
 
 <div align='center'>
 
-![DevLaravelArtisanVersion](./screenshots/DevLaravelArtisanVersion.png)
+![DevLaravelArtisanVersion](./screenshots/DevLaravelArtisanVersion5.png)
 
 </div>
 
@@ -101,7 +101,57 @@ DB_PASSWORD=dpl5757
 
 ### Configuración Nginx
 
-Actualmente voy a pushear el repositorio actual para poder pullear en la máquina de producción y también dejar los ajustes hechos.
+Deberemos fijar unos permisos a los ficheros del proyecto, para que los servicios de Nginx y PHP-FPM puedan acceder a ellos sin problema.
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevLaravelPermisos](./screenshots/DevLaravelPermisos6.png)
+
+Máquina de Producción
+
+![ProLaravelPermisos](./screenshots/ProLaravelPermisos6.png)
+
+</div>
+
+Ahora haremos una configuración de virtual host Nginx para la aplicación que hagamos en Laravel:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevVirtualHost](./screenshots/DevVirtualHost7.png)
+
+Máquina de Producción
+
+![ProVirtualHost](./screenshots/ProVirtualHost7.png)
+
+</div>
+
+Añadí al fichero `/etc/hosts` el host para probar que Laravel esté correctamente desplegado en Nginx. 
+
+Me pasé por `scp` el fichero `.env` (el que tiene las credenciales) para poder configurarlo para la base de datos del servidor de producción.
+
+<div align='center'>
+
+![scpEnv](./screenshots/scpEnv9.png)
+
+</div>
+
+A continuación voy a configurar el fichero .env en la máquina de producción:
+
+<div align='center'>
+
+![LaravelConf](./screenshots/ProLaravelEnvConf10.png)
+
+</div>
+
+Probamos a conectarnos a [laravel.travelroad.alu7410.arkania](http://laravel.travelroad.alu7410.arkania.es):
+
+
+
+
 
 
 
