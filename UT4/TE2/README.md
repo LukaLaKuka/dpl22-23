@@ -150,8 +150,51 @@ A continuación voy a configurar el fichero .env en la máquina de producción:
 Probamos a conectarnos a [laravel.travelroad.alu7410.arkania](http://laravel.travelroad.alu7410.arkania.es):
 
 
+<div align='center'>
+
+![ProLaravelConnect](./screenshots/ProLaravelConnect11.png)
+
+</div>
+
+### Lógica de negocio
+
+A partir de ahora, trabajaremos en la máquina de desarrollo para modificar el comportamiento de la aplicación para cargar los datos y procesarlos (renderizarlos) en una plantilla que nosotros predefinamos.
+
+Modificaremos ahora el fichero de las rutas de `routes/web.php` :
+
+<div align='center'>
+
+![DevRoutesConfiguration](./screenshots/DevRoutesConf12.png)
+
+</div>
+
+Y ahora escribiremos la plantilla que será en la que imprimiremos los datos. Esta se ubica en la carpeta `resources/views/` y crearemos 3 plantillas: `travelroad.blade.php`, `wished.blade.php` y `visited.blade.php`. En esta indicaremos dónde queremos ver qué valores queremos ver:
 
 
+<div align='center'>
+
+![DevTravelroadBlade](./screenshots/DevTravelroadBlade13.png)
+
+![DevTravelroadBlade](./screenshots/DevVisitedBlade13.png)
+
+![DevTravelroadBlade](./screenshots/DevWishedBlade13.png)
+
+</div>
+
+
+Y cuando nos conectamos mediante el navegador nos saldrá algo tal que así:
+
+<div align='center'>
+
+![DevTravelroadBladeNav](./screenshots/DevTravelroadBladeNav14.png)
+
+![DevVisitedBladeNav](./screenshots/DevVisitedBladeNav14.png)
+
+![DevWIshedBladeNav](./screenshots/DevWishedBladeNav14.png)
+
+</div>
+
+A tener en cuenta que la carpeta `vendor` no está incluída en el control de versiones (no preocuparse, ya que el propio framework de Laravel se encarga de añadirlo al gitignore.). Por lo que en la máquina de producción haremos un `composer instal` en el proyecto para poder instalar las dependencias necesarrias y crear esta carpeta que no se incluye en el control de versiones.
 
 
 
