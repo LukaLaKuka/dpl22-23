@@ -194,7 +194,38 @@ Y cuando nos conectamos mediante el navegador nos saldrá algo tal que así:
 
 </div>
 
-A tener en cuenta que la carpeta `vendor` no está incluída en el control de versiones (no preocuparse, ya que el propio framework de Laravel se encarga de añadirlo al gitignore.). Por lo que en la máquina de producción haremos un `composer instal` en el proyecto para poder instalar las dependencias necesarrias y crear esta carpeta que no se incluye en el control de versiones.
+Con esto ya podremos usar nuestro script para pullear el repositorio en la máquina de producción.
+
+Hay tener en cuenta que la carpeta `vendor` no está incluída en el control de versiones (no preocuparse, ya que el propio framework de Laravel se encarga de añadirlo al gitignore.). Por lo que en la máquina de producción haremos un `composer install` en el proyecto para poder instalar las dependencias necesarias y crear esta carpeta que no se incluye en el control de versiones:
+
+<div align='center'>
+
+![ProComposerInstall](./screenshots/ProComposerInstall15.png)
+
+![ProComposerInstallOutput](./screenshots/ProComposerInstall16.png)
+
+</div>
+
+Realizaremos a continuación el script de despliegue [deploy.sh](./src/Laravel/travelroad/deploy.sh)
+
+<div align='center'>
+
+![deploySh](./screenshots/deploySh17.png)
+
+</div>
+
+Y le damos permisos de ejecución al script:
+
+<div align='center'>
+
+![chmodDeploy](./screenshots/chmodDeploy18.png)
+
+</div>
+
+Y lo ejecutamos:
+
+
+
 
 
 
