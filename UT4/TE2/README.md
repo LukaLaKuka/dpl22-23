@@ -224,18 +224,39 @@ Y le damos permisos de ejecución al script:
 
 Y lo ejecutamos:
 
+<div align='center'>
 
+![LaravelDeployment](./screenshots/LaravelDeployment19.png)
 
+</div>
 
+### Certificación
 
+A continuación haremos la certificación del virtual host con Certbot:
 
+<div align='center'>
 
+![Laravel Certbot](./screenshots/LaravelCertbot.png)
 
+</div>
 
+Haremos restart al servicio de Nginx y ya debería estar certificado:
 
+<div align='center'>
 
+![LaravelNginxRestart](./screenshots/LaravelNginxRestart21.png)
 
+</div>
 
+<div align='center'>
+
+![Laravel Final](./screenshots/ProLaravelFinal22.png)
+
+![Laravel Final Visited](./screenshots/ProLaravelFinalVisited22.png)
+
+![Laravel Final Wished](./screenshots/ProLaravelFinalWIshed22.png)
+
+</div>
 
 
 ___
