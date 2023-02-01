@@ -367,6 +367,8 @@ En el fichero `.env` guardaremos los datos para la conexión a la base de datos.
 
 ![DevExpressSaveEnv](./screenshots/DevExpressSaveEnv34.png)
 
+Esto habría que hacerlo en la máquina de producción también.
+
 </div>
 
 ### Lógica de negocio - Express
@@ -447,8 +449,32 @@ Wished
 
 </div>
 
+### Gestionando Procesos - Express
 
+Si nos fijamos con detalle, para poder poner la aplicación en funcionamiento tenemos que dar de alta a la aplicación desde una terminal y dejar un proceso en la terminal directamente. Esto no es lo idílico, ya que los procesos pueden morir y habría que iniciarlos de nuevo, algo que no es admisible para un servidor web.
 
+A continuación trabajaremos en la máquina de producción para poder configurar un paquete para NodeJS para poder controlar los procesos de nuestra aplicación en NodeJS.
+
+Lo primero será instalar el gestor de procesos, que nosotros usaremos `pm2`.
+
+<div align='center'>
+
+![ProExpressPM2Install](./screenshots/ProExpressPM2Install43.png)
+
+</div>
+
+Ahora accederemos a la carpeta de nuestro proyecto [Express](./src/Express/travelroad) y ejecutamos `pm2`
+
+<div align='center'>
+
+![ProExpressPM2Start](./screenshots/ProExpressPM2Start44.png)
+![ProExpressPM2Start2](./screenshots/ProExpressPM2Start2-44.png)
+
+</div>
+
+### Configuración de Nginx - Express
+
+Lo último sería configurar el virtual host en Nginx para conectarnos al proceso de Node.JS
 
 
 
