@@ -2,5 +2,5 @@ credencial.php
 config.php
 travelroad/.env
 restartServices.sh
-Express/travelroad/.env
 node_modules
+/UT4/TE2/src/Express/travelroad/.env

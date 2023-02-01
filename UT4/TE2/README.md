@@ -476,13 +476,39 @@ Ahora accederemos a la carpeta de nuestro proyecto [Express](./src/Express/trave
 
 Lo último sería configurar el virtual host en Nginx para conectarnos al proceso de Node.JS
 
+Vamos a crear el virtual host correspondiente para express:
 
+<div align='center'>
 
+![ProExpressVirtualHost](./screenshots/ProExpressVirtualHost45.png)
 
+</div>
 
+Y ya nos podemos conectar tras haber recargado nginx:
 
+<div align='center'>
 
+![ProExpressConnect](./screenshots/ProExpressConnect46.png)
 
+</div>
+
+### Certificación - Express
+
+<div align='center'>
+
+![ProExpressCertification](./screenshots/ProExpressCertification.png)
+
+</div>
+
+### Script de Despliegue - Express
+
+Tenemos que preparar un script de despliegue que actualize los cambios hechos en el repositorio en nuestra máquina de producción y volver a iniciar el proceso de `pm2`
+
+<div align='center'>
+
+![DevExpressDeployScript](./screenshots/DevExpressDeployScript48.png)
+
+</div>
 
 ___
 
