@@ -4,8 +4,15 @@ ___
 ## Índice:
 
 1. Laravel
-    - a
-    - a
+    - Instalación
+        - [Instalación Composer](#instalar-composer)
+        - [Instalar Paquetes de Soporte](#instalar-paquetes-de-soporte)
+    - Desarrollo
+        - [Aplicación - Laravel](#aplicación---laravel)
+        - [Configuración Nginx](#configuración-nginx---Laravel)
+        - [Lógica de Negocio](#lógica-de-negocio---Laravel)
+    - Seguridad
+        - [Certificación](#certificación---Laravel)
 2. Express
     - a
     - a
@@ -65,7 +72,7 @@ Máquina de Producción
 
 </div>
 
-### Aplicación
+### Aplicación - Laravel
 
 Una vez los módulos habilitados y composer instalado, ya podríamos crear el proyecto.
 
@@ -99,7 +106,7 @@ DB_USERNAME=travelroad_user
 DB_PASSWORD=dpl5757
 ```
 
-### Configuración Nginx
+### Configuración Nginx - Laravel
 
 Deberemos fijar unos permisos a los ficheros del proyecto, para que los servicios de Nginx y PHP-FPM puedan acceder a ellos sin problema.
 
@@ -156,7 +163,7 @@ Probamos a conectarnos a [laravel.travelroad.alu7410.arkania](http://laravel.tra
 
 </div>
 
-### Lógica de negocio
+### Lógica de negocio - Laravel
 
 A partir de ahora, trabajaremos en la máquina de desarrollo para modificar el comportamiento de la aplicación para cargar los datos y procesarlos (renderizarlos) en una plantilla que nosotros predefinamos.
 
@@ -230,7 +237,7 @@ Y lo ejecutamos:
 
 </div>
 
-### Certificación
+### Certificación - Laravel
 
 A continuación haremos la certificación del virtual host con Certbot:
 
@@ -258,7 +265,6 @@ Haremos restart al servicio de Nginx y ya debería estar certificado:
 
 </div>
 
-
 ___
 
 ## TE2.2 EXPRESS
@@ -268,6 +274,189 @@ ___
 ![ExpressLogo](./images/expressLogo.png)
 
 </div>
+
+Express es un framework web para desarrollar con NodeJS.
+
+### Instalación - Express
+
+En mi caso ya tenía instalado NodeJS y npm en la máquina de Desarrollo, por lo que mostraré el proceso de instalación solo con la máquina de producción.
+
+Primero nos haremos un curl de la última versión de NodeJS y le daremos los permisos de root:
+
+<div align='center'>
+
+![ExpressCurlVersion](./screenshots/ProExpressCurlVersion23.png)
+
+</div>
+
+E instalamos NodeJS
+
+<div align='center'>
+
+![ExpressInstall](./screenshots/ProExpressInstall24.png)
+
+![NodeVersion](./screenshots/ProExpressNodeVersion25.png)
+
+</div>
+
+### Aplicación - Express
+
+A continuación, conn el gestor de dependencias de NodeJS (npm), instalaremos las dependencias necesarias para poder trabajar con el framework de `Express`.
+
+<div align='center'>
+
+![ExpressInstall](./screenshots/DevExpressInstall26.png)
+
+</div>
+
+Ahora si podemos crear nuestro proyecto. Lo crearé en la carpeta [Express](./src/Express/):
+
+<div align='center'>
+
+![ExpressStartProject](./screenshots/ExpressStartProject27.png)
+
+</div>
+
+El último comando debió generar una estructura de carpetas tal que así:
+
+<div align='center'>
+
+![ExpressTree](./screenshots/ExpressTree28.png)
+
+</div>
+
+Por lo que ahora debemos instalar las dependencias necesarias para poder trabajar con express (importante hacerlo dentro de la carpeta del proyecto de express):
+
+<div align='center'>
+
+![ExpressNPMInstall](./screenshots/DevExpressNPMInstall29.png)
+
+</div>
+
+Ahora podremos probar la aplicación en el equipo de desarrollo, que abrirá el puerto 3000 para que podamos probar nuestra aplicación:
+
+<div align='center'>
+
+![DevExpressDebug](./screenshots/DevExpressDebug30.png)
+
+![DevExpressDebugConnect](./screenshots/DevExpressDebugConnect31.png)
+
+</div>
+
+### Configuración Base de Datos - Express
+
+A continuación configuraremos nuestro proyecto de Express para poder acceder a la base de datos de travelroad montada con PostgreSQL, que para poder acceder a esta, deberemos instalar una dependencia adicional llamada node-postgres. Realizaremos la instalación con nuestro gestor de dependencias `npm`.
+
+<div align='center'>
+
+![DevExpressPGInstall](./screenshots/DevExpressPGInstall32.png)
+
+</div>
+
+Nos interesa guardar las credenciales en un fichero independiente, por lo que trabajaremos con un ficheri `.env` con lo que necesitaremos en el paquete dotenv, paquete que tenemos que instalar también como dependencia:
+
+<div align='center'>
+
+![DevExpressDotenvInstall](./screenshots/DevExpressDotenvInstall33.png)
+
+</div>
+
+En el fichero `.env` guardaremos los datos para la conexión a la base de datos. Como en nuestro caso estamos trabajando en la máquina de Desarrollo, usaremos la base de datos que tenemos en la máquina de Desarrollo.
+
+<div align='center'>
+
+![DevExpressSaveEnv](./screenshots/DevExpressSaveEnv34.png)
+
+</div>
+
+### Lógica de negocio - Express
+
+Ya tenemos creado nuestro fichero `.env` con las credenciales de nuestra base de datos de desarrollo, a continuación tendremos que configurar la conexión para poder cargar los datos y mostrarlos en una plantilla.
+
+Primero crearemos una carpeta `config` en nuestro proyecto, junto a un fichero llamado `database.js`.
+
+<div align='center'>
+
+![DevExpressConfigCreate](./screenshots/DevExpressConfigCreate35.png)
+
+Fichero `database.js`
+
+![DevExpressConfig](./screenshots/DevExpressConfigDatabase36.png)
+
+</div>
+
+A continuación gestionaremos las rutas modificando el fichero `routes/index.js`
+
+<div align='center'>
+
+![DevExpressRoutes](./screenshots/DevExpressRoutes37.png)
+
+</div>
+
+A continuación crearemos nuestras plantillas deseadas en la ruta `views/` y crearemos los ficheros con las plantillas deseadas. Si nos fijamos en la anterior captura, en donde dice `res.render` introducimos 2 parámetros, el primero es la plantilla que tenemos que procesar y el segundo las variables que queremos "exportar" a la plantilla para poder introducirlos.
+
+Tendremos que hacer la plantilla `index.pug`, `wished.pug` y `visited.pug`.
+
+<div align='center'>
+
+Plantilla Index
+
+![DevExpressIndexView](./screenshots/DevExpressIndexView38.png)
+
+Plantilla Wished
+
+![ProExpressIndexView](./screenshots/DevExpressWishedView38.png)
+
+Plantilla Visited
+
+![ProExpressIndexView](./screenshots/DevExpressWishedView38.png)
+
+</div>
+
+Una vez hemos terminado de diseñar las plantillas para nuestra aplicación, vamos a probar si funcionan correctamente en la máquina de Desarrollo:
+
+<div align='center'>
+
+Salida de terminal:
+
+![DevExpressTravelroadTest](./screenshots/DevExpressTravelroadTest39.png)
+
+Web:
+
+![DevExpressTravelroadTestWeb](./screenshots/DevExpressTravelroadTestWeb40.png)
+
+</div>
+
+Como podemos apreciar, simplemente falta corregir un pequeño salto de línea de la plantilla
+
+<div align='center'>
+
+![DevExpressIndexViewCorrect](./screenshots/DevExpressIndexViewCorrect41.png)
+
+Index
+
+![DevExpressIndexWeb](./screenshots/DevExpressIndexWeb42.png)
+
+Visited
+
+![DevExpressVisitedWeb](./screenshots/DevExpressVisitedWeb42.png)
+
+Wished
+
+![DevExpressWishedWeb](./screenshots/DevExpressWishedWeb42.png)
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
 
 ___
 

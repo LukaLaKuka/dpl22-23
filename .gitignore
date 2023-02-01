@@ -2,3 +2,5 @@ credencial.php
 config.php
 travelroad/.env
 restartServices.sh
+Express/travelroad/.env
+node_modules

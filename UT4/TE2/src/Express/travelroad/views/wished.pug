@@ -1,0 +1,11 @@
+doctype html
+html
+  head
+    title= 'Travelroad - Wished'
+    link(rel='stylesheet', href='/stylesheets/style.css')
+  body
+    block content
+    h1= "Sitios que quiero visitar"
+    ul 
+      each place in wished
+        li= place.name
