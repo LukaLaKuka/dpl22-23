@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+    <!-- etiquetas meta requeridas -->
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+    <link href='./img/logo.ico' rel='shortcut icon'/>
+    <title>TravelRoad</title>
+</head>
+<body>
+    <h1>Sitios ya visitados</h1>
+    <ul th:each="place : ${visited}">
+        <li th:text="${place.name}"></li>
+    </ul>
+</body>
+</html>
