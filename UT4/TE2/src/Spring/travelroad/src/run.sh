@@ -2,7 +2,7 @@
 
 # Como este fichero lo guardaré en travelroad/src/run.sh por lo
 # tengo que salir solamente hasta el nivel de travelroad
-cd ..
+cd $(dirname $0)
 
 ./mvnw package
 
