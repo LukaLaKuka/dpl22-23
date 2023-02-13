@@ -2,7 +2,7 @@
 
 cd $(dirname $0)
 
-.mvnw package
+./mvnw package
 
 cd ..
 
