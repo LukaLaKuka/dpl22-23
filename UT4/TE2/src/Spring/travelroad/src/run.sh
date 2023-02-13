@@ -2,9 +2,9 @@
 
 cd $(dirname $0)
 
-./mvnw package
-
 cd ..
+
+./mvnw package
 
 JAR = `ls target/*.jar -t | head -1`
 
