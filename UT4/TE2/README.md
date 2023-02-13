@@ -46,6 +46,7 @@ ___
 4. [Ruby on Rails](#te24-ruby-on-rails)
     - a
     - a
+
 5. [Django](#te25-django)
     - a
     - a
@@ -1005,3 +1006,144 @@ ___
 
 Django es un framework de desarrollo web para Python.
 
+### Instalación - Python
+
+En mi caso yo ya hice la instalación de `Python` y `pip` en un pasado en ambas máquinas para el despliegue de una interfaz para gestionar nuestra base de datos PostgreSQL.
+
+Pero deberemos instalar el framework de Django:
+
+#### Instalación - Django
+
+Primero abriremos un entorno virtual de python:
+
+<div align='center'>
+
+![DevPyEnviroment](./screenshots/DevPyEnviroment86.png)
+
+</div>
+
+A continuación instalamos Django con la herramienta de python `pip` (ya la tenía instalada):
+
+<div align='center'>
+
+![DevPyDjangoInstall](./screenshots/DevPyDjangoInstall87.png)
+
+![DevPyDjangoVersion](./screenshots/DevPyDjangoVersion88.png)
+
+</div>
+
+A continuación vamos a crear el proyecto travelroad:
+
+<div align='center'>
+
+![DevPyDjangoStart](./screenshots/DevPyDjangoStart89.png)
+
+</div>
+
+Podremos ejecutar el fichero `manage.py` para ejecutar un servidor de desarrollo en el puerto `8000`:
+
+<div align='center'>
+
+![DevPyRunSever](./screenshots/DevPyRunServer90.png)
+
+![DevPyRunSever2](./screenshots/DevPyRunServer2-90.png)
+
+</div>
+
+### Aplicación - Django
+
+A continuación en nuestro proyecto Django crearemos nuestra "aplicación" `places`:
+
+<div align='center'>
+
+![DevPyPlaceStart](./screenshots/DevPyPlaceStart91.png)
+
+</div>
+
+Django de serie no reconoce a `places` como aplicación, por lo que debemos indicarle a este que tome en cuenta a `places` modificando el fichero `main/settings.py`:
+
+<div align='center'>
+
+![DevPyPlaceConfig](./screenshots/DevPyPlaceConfig92.png)
+
+</div>
+
+#### Acceso a la base de datos - Django
+
+Para poder acceder a la base de datos que tenemos en PostgreSQL, debemos instalar un paquete de soporte denominado psycopg para poder conectar Python con nuestra base de datos.
+
+En mi caso me da error al intentar instalar el paquete `psycopg2`, pero instalé por error otro paquete llamado `pyscopg2` (cosa que me extraña bastante):
+
+<div align='center'>
+
+![DevPyPsycopgInstall](./screenshots/DevPyPsycopgInstall92.png)
+
+</div>
+
+El error parece ser porque en un fichero `.venv/lib/python3.11/site-packages/setuptools/config/setupcfg.py` hay una línea que `license_file` cuando debería poner `license_files`?
+
+Establecemos las credenciales a la base de datos en `main/settings.py`:
+
+<div align='center'>
+
+![DevPyDatabaseSettings](./screenshots/DevPyDatabaseSettings93.png)
+
+</div>
+
+Y comprobamos que todo esté correcto (cosa que no me da, no entiendo por qué me dan tantos errores):
+
+<div align='center'>
+
+![DevPyCheckError](./screenshots/DevPyCheckError94.png)
+
+</div>
+
+A continuación haremos el modelo, y el controlador para nuestra aplicación:
+
+<div align='center'>
+
+![DevPyModel](./screenshots/DevPyModel96.png)
+
+![DevPyView](./screenshots/DevPyView96.png)
+
+</div>
+
+A continuación nos creamos una carpeta `places/templates/` y nos crearemos las plantillas que queremos renderizar:
+
+<div align='center'>
+
+Estructura: 
+
+![DevPyTemplates](./screenshots/DevPyTemplates97.png)
+
+Plantilla Index:
+
+![DevPyTemplateIndex](./screenshots/DevPyTemplateIndex97.png)
+
+Plantilla Visited:
+
+![DevPyTemplateVisited](./screenshots/DevPyTemplateVisited97.png)
+
+Plantilla Wished:
+
+![DevPyTemplateWished](./screenshots/DevPyTemplateWished97.png)
+
+</div>
+
+A continuación deberíamos configurar el enrutamiento de nuestro proyecto en el fichero `places/urls.py`:
+
+<div align='center'>
+
+![DevPyURL](./screenshots/DevPyURL98.png)
+
+</div>
+
+y enlazarlo con el enrutamiento de nuestro `main/urls.py`:
+
+<div align='center'>
+
+![DevPyURLMain](./screenshots/DevPyURL99.png)
+
+</div>
+
+A continuación sería comprobar que todo funciona correctamente, pero no he podido arreglar en lo absoluto el error que me dió con el paquete de soporte de PostgreSQL. He estado buscando pero pareciera que `pip` no fuera capaz de encontrar ese paquete y a raíz de ello también da error el `./manage.py check` por no reconocer bien los ajustes de la base de datos de `pyenv.cfg`.
