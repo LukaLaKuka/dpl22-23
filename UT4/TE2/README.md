@@ -3,7 +3,7 @@ ___
 
 ## Índice:
 
-1. Laravel
+1. [Laravel](#te21-laravel)
     - Instalación
         - [Instalación Composer](#instalar-composer)
         - [Instalar Paquetes de Soporte](#instalar-paquetes-de-soporte)
@@ -13,16 +13,28 @@ ___
         - [Lógica de Negocio](#lógica-de-negocio---Laravel)
     - Seguridad
         - [Certificación](#certificación---Laravel)
-2. Express
+
+2. [Express](#te22-express)
+    - Instalación
+        - [Instalación](#instalación---express)
+    - Aplicación
+        - [Aplicación](#aplicación---express)
+        - [Configuración de base de datos](#configuración-base-de-datos---express)
+        - [Lógica de negocio](#lógica-de-negocio---express)
+    - Despliegue
+        - [Gestión de procesos](#gestionando-procesos---express)
+        - [Configuración de Nginx](#configuración-de-nginx---express)
+        - [Script de Despliegue](#script-de-despliegue---express)
+    - Seguridad
+        - [Certificación](#certificación---express)
+
+3. [Spring](#te23-spring)
     - a
     - a
-3. Spring
+4. [Ruby on Rails](#te24-ruby-on-rails)
     - a
     - a
-4. Ruby on Rails
-    - a
-    - a
-5. Django
+5. [Django](#te25-django)
     - a
     - a
 
@@ -269,7 +281,7 @@ ___
 
 ## TE2.2 EXPRESS
 
-<div align='center'
+<div align='center'>
 
 ![ExpressLogo](./images/expressLogo.png)
 
@@ -492,14 +504,6 @@ Y ya nos podemos conectar tras haber recargado nginx:
 
 </div>
 
-### Certificación - Express
-
-<div align='center'>
-
-![ProExpressCertification](./screenshots/ProExpressCertification.png)
-
-</div>
-
 ### Script de Despliegue - Express
 
 Tenemos que preparar un script de despliegue que actualize los cambios hechos en el repositorio en nuestra máquina de producción y volver a iniciar el proceso de `pm2`
@@ -510,21 +514,465 @@ Tenemos que preparar un script de despliegue que actualize los cambios hechos en
 
 </div>
 
-___
+### Certificación - Express
 
-## TE2.3 SPRING
+<div align='center'>
 
-<div align='center'
-
-![SpringLogo](./images/springLogo.png)
+![ProExpressCertification](./screenshots/ProExpressCertification.png)
 
 </div>
 
 ___
 
+## TE2.3 SPRING
+
+<div align='center'>
+
+![SpringLogo](./images/springLogo.png)
+
+</div>
+
+Spring es un framework web para el desarrollo de aplicaciones web en Java.
+
+### Instalación - Spring
+
+#### JDK
+
+Lo primero debemos instalar el Java Development Kit, por lo que primero descargaremos el paquete del OpenJDK:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringCurl](./screenshots/DevSpringCurl49.png)
+
+Máquina de Producción
+
+![ProSpringCurl](./screenshots/ProSpringCurl49.png)
+
+</div>
+
+A continuación descomprimimos el paquete en `/usr/lib/jvm`
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringUnPack](./screenshots/DevSpringUnPack50.png)
+
+Máquina de Producción
+
+![ProSpringUnPack](./screenshots/ProSpringUnPack50.png)
+
+</div>
+
+Nuestro sistema no sabe dónde tenemos descargados los ejecutables de JAVA, por lo que a continuación deberemos indicarle al sistema dónde tenemos guardados esos ficheros. A continuación modificaremos el fichero `/etc/profile.d/jdk_home.sh`.
+
+<div align='center'>
+
+![DevSpringJdkHome](./screenshots/DevSpringJdkHome51.png)
+
+</div>
+
+Ahora actualizaremos las alternativas para los ejecutables:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSprngUpdateAlternatives](./screenshots/DevSpringUpdateAlternatives52.png)
+
+Máquina de Producción
+
+![ProSpringUpdateAlternatives](./screenshots/ProSpringUpdateAlternatives52.png)
+
+</div>
+
+Ya tenemos instalados el intérprete de java y su compilador respectivamente.
+
+#### SDKMAN
+
+SDKMAN es una herramienta para la gestión de versiones de kits de desarrollo.
+
+Primero instalaremos el paquete `zip` en el sistema.
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringZip](./screenshots/DevSpringZIP53.png)
+
+Máquina de Producción
+
+![ProSpringZip](./screenshots/ProSpringZIP53.png)
+
+</div>
+
+SDKMAN nos dan un script de instalación que nos configura todo automáticamente, por lo que simplemente haremos un curl de ese script:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringSDKCurl](./screenshots/DevSpringSDKCurl54.png)
+
+Máquina de Producción
+
+![ProSpringSDKCurl](./screenshots/ProSpringSDKCurl54.png)
+
+</div>
+
+A continuación activamos el punto de entrada:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringPuntoEntrada](./screenshots/DevSpringPuntoEntrada.png)
+
+Máquina de Producción
+
+![ProSpringPuntoEntrada](./screenshots/ProSpringPuntoEntrada.png)
+
+</div>
+
+Ya comprobamos si el SDK está instalado:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringSDKVersion](./screenshots/DevSpringSDKVersion56.png)
+
+Máquina de Producción
+
+![ProSpringSDKVersion](./screenshots/ProSpringSDKVersion56.png)
+
+</div>
+
+#### Spring Boot
+
+Ahora que tenemos instalado SDK, podemos instalar Spring Boot, un subproyecto que nos facilita el despliegue de aplicaciones en producción.
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringBootInstall](./screenshots/DevSpringBootInstall57.png)
+
+Máquina de Producción
+
+![ProSpringBootInstall](./screenshots/ProSpringBootInstall57.png)
+
+</div>
+
+Y comprobamos versión:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringVersion](./screenshots/DevSpringVersion58.png)
+
+Máquina de Producción
+
+![ProSpringVersion](./screenshots/ProSpringVersion58.png)
+
+</div>
+
+#### Maven
+
+Maven es una herramienta para la construcción de proyectos en Java y gestión de las dependencias.
+
+Primero vamos a instalar Maven con SDK:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringMavenInstall](./screenshots/DevSpringMavenInstall59.png)
+
+Máquina de Producción
+
+![ProSpringMavenInstall](./screenshots/ProSpringMavenInstall59.png)
+
+</div>
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![DevSpringMavenVersion](./screenshots/DevSpringMavenVersion60.png)
+
+Máquina de Producción
+
+![ProSpringMavenVersion](./screenshots/ProSpringMavenVersion60.png)
+
+</div>
+
+### Aplicación - Spring
+
+A continuación vamos a crear nuestro proyecto en Spring, por lo que voy a crear el proyecto en la carpeta [src/Spring](./src/Spring/)
+
+<div align='center'>
+
+![DevSpringInit](./screenshots/DevSpringInit61.png)
+
+![DevSpringTravelroadTree](./screenshots/DevSpringTravelroadTree62.png)
+
+</div>
+
+Ahora nos dirigiremos a la parte `main` de nuestro proyecto, que es donde escribiremos nuestro código.
+
+Nos crearemos las siguientes carpetas:
+
+| Carpeta | Utilidad |
+| --- | --- |
+| Controllers | Aquí guardaremos los controladores de nuestro proyecto |
+| Models | Aquí guardaremos los modelos de nuestro proyecto |
+| Repositories | // PENDIENTE |
+
+Y un fichero para cada carpeta.
+
+<div align='center'>
+
+![DevSpringDIRs](./screenshots/DevSpringDIRs63.png)
+
+</div>
+
+Falta añadir las templates wished y visited:
+
+<div align='center'>
+
+![DevSPringTemplates](./screenshots/DevSpringTemplates64.png)
+
+</div>
+
+
+A continuación modificaremos los ficheros que hemos creado:
+
+<div align='center'>
+
+Controlador
+
+![DevSpringController](./screenshots/DevSpringController65.png)
+
+Modelo
+
+![DevSpringModel](./screenshots/DevSpringModel65-1.png)
+![DevSpringModel](./screenshots/DevSpringModel65-2.png)
+
+Repositorio
+
+![DevSpringRepository](./screenshots/DevSpringRepository65.png)
+
+Templates
+
+![DevSpringTemplateHome](./screenshots/DevSpringTemplateHome65.png)
+![DevSpringTemplateHome](./screenshots/DevSpringTemplateVisited65.png)
+![DevSpringTemplateHome](./screenshots/DevSpringTemplateWished65.png)
+
+</div>
+
+Previamente instalamos Maven, que es nuestro gestor de dependencias. Por tanto debemos definir estas en un fichero llamado [pom.xml](./src/Spring/travelroad/pom.xml).
+
+Para definir las dependencias, debemos acceder al elemento `<dependencies>` y añadir:
+
+```
+<dependency>
+    <groupId></groupId>
+    <artifactId></artifactId>
+</dependency>
+```
+
+<div align='center'>
+
+![DevSpring](./screenshots/DevSpringPomConfig66.png)
+
+</div>
+
+A continuación vamos a incluir las credeniales de nuestra base de datos en el fichero `src/main/resources/application.properties`
+
+<div align='center'>
+
+![DevSpringProperties](./screenshots/DevSpringProperties67.png)
+
+</div>
+
+#### Proceso de construcción
+
+A continuación deberemos hacer 2 pasos esenciales para poder procesar nuestros proyectos en Java.
+
+Java se trata de un lenguaje compilado e interpretado, un híbrido, ya que debemos compilar los ficheros `.java` para convertirlos en unos ficheros `.class` y así el intérprete de Java pueda procesar estos ficheros.
+
+Teniendo en cuenta lo anterior, observamos que el primer paso es compilar todos estos ficheros. Pero además debemos empaquetar todos estos ficheros compilados en un paquete para reducir almacenamiento y darle mayor unidad a los proyectos.
+
+Entonces nos dirigimos al primer punto, compilar el proyecto. Maven nos trae una herramienta que se llama Maven Wrapper que nos facilita la construcción de los proyectos:
+
+Para compilar el proyecto deberemos hacer un `mvnw compile` en la carpeta del proyecto:
+
+<div align='center'>
+
+![DevSpringMVNWCompile](./screenshots/DevSpringMVNWCompile68.png)
+
+</div>
+
+Con esto se nos creara una carpeta `.mvn/wrapper` en el proyecto, por lo que a continuación vamos a empaquetar todo el proyecto.
+
+<div align='center'>
+
+![DevSpringMVNWPackage](./screenshots/DevSpringMVNWPackage69.png)
+
+</div>
+
+Tras esto, se nos debería haber generado un fichero en la carpeta [target](./src/Spring/travelroad/target/) del proyecto llamado `travelroad-0.0.1-SNAPSHOT.jar`
+
+<div align='center'>
+
+![DevSpringTargetTree](./screenshots/DevSpringTargetTree70.png)
+
+</div>
+
+Dentro del empaquetado nos incluye un servidor de aplicaciones para Java que se puede usar en producción. Si ejecutamos el fichero empaquetado de nuestro proyecto [travelroad-0.0.1-SNAPSHOT.jar](./src/Spring/travelroad/target/travelroad-0.0.1-SNAPSHOT.jar) podremos acceder al `puerto 8080` en localhost para comprobar que la aplicación funciona con éxito:
+
+<div align='center'>
+
+![DevSpringJavaJarTravelroad](./screenshots/DevSpringJavaJarTravelroad71.png)
+
+</div>
+
+Y nos conectamos desde el navegador a `localhost:8080` y comprobamos que la aplicación se ejecutó con éxito:
+
+<div align='center'>
+
+![DevSpringTest](./screenshots/DevSpringTest72.png)
+
+</div>
+
+### Entorno de Producción - Spring
+
+A continuación generaremos un script que nos facilite la ejecución de nuestra aplicación web:
+
+<div align='center'>
+
+![DevSpringRunSH](./screenshots/DevSpringRunSH73.png)
+
+</div>
+
+Y le tenemos que dar permisos de ejecución:
+
+<div align='center'>
+
+![DevSpringRunPriviligies](./screenshots/DevSpringRunPriligies74.png)
+
+</div>
+
+Una cosa importante, tras hacernos un pull a nuestra máquina de producción, deberíamos hacer un envío del fichero de credenciales.
+
+<div align='center'>
+
+![DevSpringSCP](./screenshots/DevSpringSCP75.png)
+
+</div>
+
+Adicionalmente, he modificado las credenciales a las que tengo en la máquina de producción.
+
+Ahora en la máquina de producción generaremos un fichero de servicio para poder gestionarlo mediante systemd:
+
+<div align='center'>
+
+Máquina de Desarrollo
+
+![ProSpringServiceDir](./screenshots/ProSpringServiceDir76.png)
+
+Máquina de Producción
+
+![ProSpringServiceConf](./screenshots/ProSpringServiceConf77.png)
+
+</div>
+
+A continuación deberemos habilitar el servicio para que se arranque automáticamente:
+
+<div align='center'>
+
+![ProSpringServiceEnable](./screenshots/ProSpringServiceEnable78.png)
+
+</div>
+
+En mi caso a la hora de intentar arrancar el servicio me da error porque me falta la carpeta target (incluída en el [.gitignore](./src/Spring/travelroad/.gitignore))
+
+<div align='center'>
+
+![ProSpringServiceError](./screenshots/ProSpringServiceError79.png)
+
+</div>
+
+Por lo que nos vamos a pasar por SCP la carpeta target para poder ejecutar nuestra app.
+
+<div align='center'>
+
+![DevSpringSCPTarget](./screenshots/DevSpringSCPTarget80.png)
+
+</div>
+
+Y en un principio debería de ejecutarse bien el servicio:
+
+<div align='center'>
+
+![ProSpringServiceRunning](./screenshots/ProSpringServiceRunning81.png)
+
+</div>
+
+### Configuración de Nginx - Spring
+
+Ya simplemente nos falta configurar Nginx y así podemos tener la aplicación disponible:
+
+<div align='center'>
+
+![ProSpringNginxConf](./screenshots/ProSpringNginxConf82.png)
+
+</div>
+
+y hacemos un reload del servicio de Nginx:
+
+<div align='center'>
+
+![ProSpringNginxReload](./screenshots/ProSpringNginxReload83.png)
+
+</div>
+
+### Acceso a la aplicación web - Spring
+
+Por alguna razón, al ejecutar el servicio de travelroad en spring, en lo que tarda en abrir el servidor de tomcat consume un alto % de la CPU, por lo que el sistema da un error al sistema:
+
+<div align='center'>
+
+![ProSPringServiceError](./screenshots/ProSpringServiceError84.png)
+
+</div>
+
+### Certificación - Spring
+
+<div align='center'>
+
+![ProSpringCertification](./screenshots/ProSpringCertification85.png)
+
+</div>
+
+### Script de Despliegue - Spring
+
+<div align='center'>
+
+![DevSPringDeploySH](./screenshots/DevSpringDeploySH.png)
+
+</div>
+
+
+___
+
 ## TE2.4 RUBY ON RAILS
 
-<div align='center'
+<div align='center'>
 
 ![RubyOnRailsLogo](./images/rorLogo.png)
 
@@ -535,7 +983,7 @@ ___
 
 ## TE2.5 DJANGO
 
-<div align='center'
+<div align='center'>
 
 ![DjangoLogo](./images/djangoLogo.png)
 
