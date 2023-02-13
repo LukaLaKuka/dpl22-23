@@ -4,3 +4,4 @@ travelroad/.env
 restartServices.sh
 node_modules
 /UT4/TE2/src/Express/travelroad/.env
+application.properties
