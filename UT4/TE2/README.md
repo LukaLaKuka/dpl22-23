@@ -29,27 +29,28 @@ ___
         - [Certificación](#certificación---express)
 
 3. [Spring](#te23-spring)
-    - [Instalación](#instalación---spring)
+    - Instalación
         - [JDK](#jdk)
         - [SDKMAN](#sdkman)
         - [Spring-Boot](#spring-boot)
         - [Maven](#maven)
-    - [Aplicación](#aplicación---spring)
+    - Aplicación
         - [Proceso de construcción](#proceso-de-construcción)
-    - [Entorno de producción](#entorno-de-producción---spring)
-    - [Configuración Nginx](#configuración-de-nginx---spring)
-    - [Acceso a la aplicación web](#acceso-a-la-aplicación-web---spring)
-    - [Certificación](#certificación---spring)
-    - [Script de Despliegue](#script-de-despliegue---spring)
+        - [Entorno de producción](#entorno-de-producción---spring)
+    - Despliegue
+        - [Configuración Nginx](#configuración-de-nginx---spring)
+        - [Acceso a la aplicación web](#acceso-a-la-aplicación-web---spring)
+        - [Script de Despliegue](#script-de-despliegue---spring)
+    - Seguridad
+        - [Certificación](#certificación---spring)
 
-
-4. [Ruby on Rails](#te24-ruby-on-rails)
-    - a
-    - a
-
-5. [Django](#te25-django)
-    - a
-    - a
+4. [Django](#te25-django)
+    - Instalación
+        - [Instalación Python](#instalación---python)
+        - [Instalación Django](#instalación---django)
+    - Aplicación
+        - [Aplicación](#aplicación---django)
+            - [Acceso a la base de Datos](#acceso-a-la-base-de-datos---django)
 
 ___
 
@@ -966,14 +967,6 @@ Por alguna razón, al ejecutar el servicio de travelroad en spring, en lo que ta
 
 Intenté solucionarlo de distintas maneras, bajando la prioridad o consumo de la app pero sigue saltando error al cabo de 20 segundos de iniciar el servicio.
 
-### Certificación - Spring
-
-<div align='center'>
-
-![ProSpringCertification](./screenshots/ProSpringCertification85.png)
-
-</div>
-
 ### Script de Despliegue - Spring
 
 <div align='center'>
@@ -982,21 +975,17 @@ Intenté solucionarlo de distintas maneras, bajando la prioridad o consumo de la
 
 </div>
 
-
-___
-
-## TE2.4 RUBY ON RAILS
+### Certificación - Spring
 
 <div align='center'>
 
-![RubyOnRailsLogo](./images/rorLogo.png)
+![ProSpringCertification](./screenshots/ProSpringCertification85.png)
 
 </div>
 
-
 ___
 
-## TE2.5 DJANGO
+## TE2.4 DJANGO
 
 <div align='center'>
 
@@ -1090,7 +1079,7 @@ Establecemos las credenciales a la base de datos en `main/settings.py`:
 
 </div>
 
-Y comprobamos que todo esté correcto (cosa que no me da, no entiendo por qué me dan tantos errores):
+Y comprobamos que todo esté correcto (cosa que no me da, porque no tengo el paquete de psycopg2):
 
 <div align='center'>
 
@@ -1146,4 +1135,4 @@ y enlazarlo con el enrutamiento de nuestro `main/urls.py`:
 
 </div>
 
-A continuación sería comprobar que todo funciona correctamente, pero no he podido arreglar en lo absoluto el error que me dió con el paquete de soporte de PostgreSQL. He estado buscando pero pareciera que `pip` no fuera capaz de encontrar ese paquete y a raíz de ello también da error el `./manage.py check` por no reconocer bien los ajustes de la base de datos de `pyenv.cfg`.
+A continuación sería comprobar que todo funciona correctamente, pero no he podido arreglar en lo absoluto el error que me dió con el paquete de soporte de PostgreSQL. He estado buscando pero pareciera que `pip` no fuera capaz de encontrar ese paquete y a raíz de ello también da error el `./manage.py check` porque no puede reconocer bien los ajustes de la base de datos de `pyenv.cfg`.
