@@ -8,4 +8,4 @@ cd ..
 
 JAR = `ls target/*.jar -t | head -1`
 
-nice -n 19 /usr/bin/java -jar $JAR
+nice -n 19 (/usr/bin/java -jar $JAR)
