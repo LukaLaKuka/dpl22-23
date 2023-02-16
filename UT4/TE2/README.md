@@ -957,7 +957,7 @@ y hacemos un reload del servicio de Nginx:
 
 ### Acceso a la aplicación web - Spring
 
-Por alguna razón, al ejecutar el servicio de travelroad en spring, en lo que tarda en abrir el servidor de tomcat consume un alto % de la CPU, por lo que el sistema da un error al sistema:
+Por alguna razón, al ejecutar el servicio de travelroad en spring, en lo que tarda en abrir el servidor de tomcat consume un alto % de la CPU, por lo que el sistema da un error:
 
 <div align='center'>
 
