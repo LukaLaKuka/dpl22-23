@@ -1183,5 +1183,174 @@ Deberíamos tener un fichero donde marquemos las dependencias de nuestro proyect
 
 </div>
 
-### Entorno de producción:
+### Entorno de producción - Django
 
+#### Instalación de dependencias - Django
+
+Ahora en la máquina de producción, deberíamos hacernos un git pull, abrir el entorno virtual e instalar las dependencias que hemos definido en nuestro fichero de requerimientos:
+
+Como tampoco tenía en la máquina de producción la última versión de `libpq-dev` pues no se me instaló con éxito `psycopg2`:
+<div align='center'>
+
+![ProPyReqInstall](./screenshots/ProPyReqInstall106.png)
+
+</div>
+
+Ahora que ya actualicé el paquete de libpq-dev, ya debería poder isntalar `pyscopg2`:
+
+<div align='center'>
+
+![ProPyReqInstall2](./screenshots/ProPyReqInstall2-107.png)
+
+</div>
+
+#### Parámetros para el entorno de producción - Django
+
+A contición, debemos de definir unos parámetros en la configuración en un fichero que crearemos que se llamará `.env` (mantenerlo fuera del control de versiones):
+
+<div align='center'>
+
+![ProPyEnvConfig](./screenshots/ProPyEnvConfig108.png)
+
+</div>
+
+### Servidor de aplicación - Django
+
+#### Gunicorn
+
+A continuación deberíamos levantar un servicio de aplicación para nuestra aplicación Django, hay varias opciones pero nosotros escogeremos `gunicorn`:
+
+Instalamos gunicorn:
+
+<div align='center'>
+
+![ProPyGunicornInstall](./screenshots/ProPyGunicornInstall109.png)
+
+</div>
+
+y ejecutamos el script de gestión para lanzar el servidor:
+
+<div align='center'>
+
+![ProPyGunicornExec](./screenshots/ProPyGunicornExec110.png)
+
+</div>
+
+#### Supervisor
+
+Podríamos volver a gestionar el servidor con `systemd`, pero a continuación vamos a gestionarlo con un programa llamado `Supervisor`.
+
+Primero será instalarlo:
+
+<div align='center'>
+
+![ProPySupervisorInstall](./screenshots/ProPySupervisorInstall111.png)
+
+</div>
+
+y comprobamos el estado del servicio:
+
+<div align='center'>
+
+![ProPySupervisorStatus](./screenshots/ProPySupervisorStatus112.png)
+
+</div>
+
+Para utilizar nuestra nueva herramienta, debemos usar el comando `supervisorctl`, pero en un principio este no tendrá permisos en el sistema, por lo que debemos de darle permisos:
+
+<div align='center'>
+
+![ProPySupervisorPerms](./screenshots/ProPySupervisorPerms.png)
+
+![ProPySupervisorPerms](./screenshots/ProPySupervisorConf114.png)
+
+</div>
+
+Y reiniciamos el servicio de supervisor:
+
+<div align='center'>
+
+![ProPySupervisorRestart](./screenshots/ProPySupervisorRestart115.png)
+
+</div>
+
+Ya ejecutamos un `supervisorctl help`:
+
+<div align='center'>
+
+![ProPySUpervisorHelp](./screenshots/ProPySupervisorHelp112.png)
+
+</div>
+
+#### Script de servicio
+
+A continuación prepararemos nuestro script para desplegar nuestro servidor Django en la carpeta de nuestro proyecto:
+
+<div align='center'>
+
+![ProPyRunSH](./screenshots/ProPyRunSH116.png)
+
+</div>
+
+Y le damos permisos de ejecución:
+
+<div align='center'>
+
+![ProPyChmod](./screenshots/ProPyCHMOD117.png)
+
+</div>
+
+#### Configuración de supervisor
+
+Nos falta crear la configuración de un proceso en supervisor para que lance nuestro servicio de gunicorn en el archivo `/etc/supervisor/conf.d/travelroad.conf`:
+
+<div align='center'>
+
+![ProPySupervisorConf118](./screenshots/ProPySupervisorConf118.png)
+
+</div>
+
+Y añadimos el proceso:
+
+<div align='center'>
+
+![ProPySUpervisorAdd](./screenshots/ProPySUpervisorAdd119.png)
+
+</div>
+
+### Nginx
+
+Configuramos el virtual host:
+
+<div align='center'>
+
+![ProPyNginx](./screenshots/ProPyNginx120.png)
+
+</div>
+
+Hacemos un reload a Nginx y ya estaría desplegado:
+
+<div align='center'>
+
+![ProPYDeployed](./screenshots/ProPyDeployed121.png)
+
+</div>
+
+### Script de despliegue
+
+A continuación simplemente solo es hacer el script de despliegue:
+
+<div align='center'>
+
+![ProPyDeploySH](./screenshots/ProPyDeploySH.png)
+
+</div>
+
+
+### Certificación - Django
+
+<div align='center'>
+
+![ProPyCertbot](./screenshots/ProPyCertbot122.png)
+
+</div>
