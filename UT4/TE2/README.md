@@ -1061,7 +1061,7 @@ Django de serie no reconoce a `places` como aplicación, por lo que debemos indi
 
 Para poder acceder a la base de datos que tenemos en PostgreSQL, debemos instalar un paquete de soporte denominado psycopg para poder conectar Python con nuestra base de datos.
 
-En mi caso me da error al intentar instalar el paquete `psycopg2`, pero instalé por error otro paquete llamado `pyscopg2` (cosa que me extraña bastante):
+Cómo ya hicimos la instalación en persona, pues adjunto captura de la verificación de que ya está instalado:
 
 <div align='center'>
 
@@ -1079,11 +1079,11 @@ Establecemos las credenciales a la base de datos en `main/settings.py`:
 
 </div>
 
-Y comprobamos que todo esté correcto (cosa que no me da, porque no tengo el paquete de psycopg2):
+Y comprobamos que todo esté correcto:
 
 <div align='center'>
 
-![DevPyCheckError](./screenshots/DevPyCheckError94.png)
+![DevPyCheck](./screenshots/DevPyCheck.png)
 
 </div>
 
@@ -1135,4 +1135,53 @@ y enlazarlo con el enrutamiento de nuestro `main/urls.py`:
 
 </div>
 
-A continuación sería comprobar que todo funciona correctamente, pero no he podido arreglar en lo absoluto el error que me dió con el paquete de soporte de PostgreSQL. He estado buscando pero pareciera que `pip` no fuera capaz de encontrar ese paquete y a raíz de ello también da error el `./manage.py check` porque no puede reconocer bien los ajustes de la base de datos de `pyenv.cfg`.
+A continuación compronamos que todo esté instalado correctamente con un `python manage.py check`:
+
+![DevPyCheck2](./screenshots/DevPyCheck.png)
+
+Ahora una vez hemos comprobado que toda la sintaxis está correctamente, vamos a probar a ejecutar nuestro programa en local:
+
+<div align='center'>
+
+![DevPyRunServer](./screenshots/DevPyRunServer100.png)
+
+![DevPyRunServer](./screenshots/DevPyRunServer101.png)
+
+</div>
+
+Cómo estamos cambiando entre máquinas, queremos poder modificar las credenciales de la base de datos en el proyecto en función a la máquina en la que estemos trabajando, por lo que deberemos instalar un paquete llamado `prettyconf` que nos permite cargar variables de entorno mediante un fichero de configuración:
+
+<div align='center'>
+
+![DevPyPrettyConfInstall](./screenshots/DevPyPrettyConfInstall102.png)
+
+</div>
+
+Y deberemos añadir al fichero de configuración la siguiente línea:
+
+<div align='center'>
+
+![DevPyPrettyConf](./screenshots/DevPyPrettyConf103.png)
+
+</div>
+
+Y comprobamos que todo esté en orden:
+
+<div align='center'>
+
+![DevPyCheck3](./screenshots/DevPyCheck3-104.png)
+
+</div>
+
+### Especificación de requerimientos
+
+Deberíamos tener un fichero donde marquemos las dependencias de nuestro proyecto, por lo que en la misma carpeta del proyecto simplemente crearemos un fichero `requirements.txt` donde escribiremos las dependencias (django, prettyconf y psycopg2):
+
+<div align='center'>
+
+![DevPyRequirements](./screenshots/DevPyRequirements105.png)
+
+</div>
+
+### Entorno de producción:
+
